@@ -26,11 +26,19 @@ int		main(void)
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	void	*img_ptr;
 	t_param	param;
+
+	int		img_width;
+	int 	img_height;
 
 	param_init(&param);
 	mlx_ptr = mlx_init();
 	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "hello world");
-	mlx_hook(win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &param);
+	
+	mlx_hook(win_ptr, X_EVENT_KEY_PRESS, 1L<<0, &key_press, &param);
+	
+	img_ptr = mlx_xpm_file_to_image(mlx_ptr, "42logo.xpm", &img_width, &img_height);
+	mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 150, 150);
 	mlx_loop(mlx_ptr);
 }
