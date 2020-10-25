@@ -1,68 +1,166 @@
-#include "./mlx/mlx.h"
-#include "cub3d.h"
+#include <string.h>
+#include "../mlx/mlx.h"
+#include "./cub3d.h"
 
-void	param_init(t_param *param)
+# define TILE_SIZE 32
+# define ROWS 11
+# define COLS 15
+# define WIDTH COLS * TILE_SIZE
+# define HEIGHT ROWS * TILE_SIZE
+
+# define TO_COORD(X, Y) ((int)floor(Y) * WIDTH + (int)floor(X))
+
+//Draw the line by DDA algorithm
+void	draw_line(t_game *game, double x1, double y1, double x2, double y2)
 {
-	param->x = 3;
-	param->y = 0;
-	param->str[0] = 'a';
-	param->str[1] = 'b';
-	param->str[2] = '\0';
+	double	deltaX;
+	double	deltaY;
+	double	step;
+
+	deltaX = x2 - x1;
+	deltaY = y2 - y1;
+	step = (fabs(deltaX) > fabs(deltaY)) ? fabs(deltaX) : fabs(deltaY);
+	deltaX /= step;
+	deltaY /= step;
+	while (fabs(x2 - x1) > 0.01 || fabs(y2 - y1) > 0.01)
+	{
+		game->img.data[TO_COORD(x1, y1)] = 0xb3b3b3;
+		x1 += deltaX;
+		y1 += deltaY;
+	}
 }
 
-int		key_press(int keycode, t_param *param)
+void 	draw_lines(t_game *game)
 {
-	if (keycode == KEY_W)
-		param->x++;
-	else if (keycode == KEY_S)
-		param->x--;
-	else if (keycode == KEY_ESC)
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < COLS)
+	{
+		draw_line(game, i * TILE_SIZE, 0, i * TILE_SIZE, HEIGHT);
+		i++;
+	}
+	draw_line(game, COLS * TILE_SIZE - 1, 0, COLS * TILE_SIZE - 1, HEIGHT);
+	j = 0;
+	while (j < ROWS)
+	{
+		draw_line(game, 0, j * TILE_SIZE, WIDTH, j * TILE_SIZE);
+		j++;
+	}
+	draw_line(game, 0, ROWS * TILE_SIZE - 1, WIDTH, ROWS * TILE_SIZE - 1);
+}
+
+void	draw_rectangle(t_game *game, int x, int y)
+{
+	int i;
+	int j;
+
+	x *= TILE_SIZE;
+	y *= TILE_SIZE;
+	i = 0;
+	while (i < TILE_SIZE)
+	{
+		j = 0;
+		while (j < TILE_SIZE)
+		{
+			game->img.data[(y  + i) * WIDTH + x + j] = 0xFFFFFF;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_rectangles(t_game *game)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < ROWS)
+	{
+		j = 0;
+		while (j < COLS)
+		{
+			if (game->map[i][j] == 1)
+				draw_rectangle(game, j, i);
+			j++;
+		}
+		i++;
+	}
+}
+
+int		deal_key(int key_code, t_game *game)
+{
+	if (key_code == KEY_ESC)
 		exit(0);
-	printf("x: %d\n", param->x);
+	return (0);
+}
+
+int 	close_window(t_game *game)
+{
+	exit(0);
+}
+
+void	game_init(t_game *game)
+{	
+	int map[ROWS][COLS] = {
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+	{1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+	{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+	};
+	ft_memcpy(game->map, map, sizeof(int) * ROWS * COLS);
+}
+
+void	window_init(t_game *game)
+{
+	game->mlx = mlx_init();
+	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "mlx 42");
+}
+
+void	img_init(t_game *game)
+{
+	game->img.img_ptr = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	game->img.data = (int *)mlx_get_data_addr(game->img.img_ptr, &game->img.bpp, &game->img.size_l, &game->img.endian);
+}
+
+int		main_loop(t_game *game)
+{
+
+	draw_rectangles(game);
+	draw_lines(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img_ptr, 0, 0);
 	return (0);
 }
 
 int		main(void)
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_param	param;
-	t_img	img;
+	t_game game;
 
-	int		idx_w;
-	int		idx_h;
+	game_init(&game);
+	window_init(&game);
+	img_init(&game);
+	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
+	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &close_window, &game);
 
-	//1 initialization
-	param_init(&param);
-	mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "hello world");
-	
-	//2 key press
-	mlx_hook(win_ptr, X_EVENT_KEY_PRESS, 1L<<0, &key_press, &param);
-	
-	//5 load image and put pixel
-	img.img_ptr = mlx_xpm_file_to_image(mlx_ptr, "42logo.xpm", &img.img_width, &img.img_height);
-	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
-	//여기서 (int *)를 안해주고 img.data가 void *이면 밑에 배열값들을 참조할 때 다 4를 곱해야한다.
-	//그렇기 때문에 int *로 캐스팅해주는편이 좋다고 한다.
-	
-
-	idx_h = -1;
-	while (++idx_h < IMG_HEIGHT)
+	mlx_loop_hook(game.mlx, &main_loop, &game);
+	int i = 0, j = 0;
+	for (i = 0 ; i < ROWS; i++)
 	{
-		idx_w = -1;
-		while (++idx_w < IMG_WIDTH)
+		for (j = 0; j < COLS; j++)
 		{
-			if (idx_w % 2)
-				img.data[idx_h * IMG_WIDTH + idx_w] = 0xFFFFFF;
-			else
-				img.data[idx_h * IMG_WIDTH + idx_w] = 0x008080;
+			printf("%d", game.map[i][j]);
 		}
+		printf("\n");
 	}
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img.img_ptr, 0, 0);
-
-
-	mlx_loop(mlx_ptr);
-
-	return (0);
+	mlx_loop(game.mlx);
+	
 }

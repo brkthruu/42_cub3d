@@ -65,8 +65,8 @@ void	param_init(t_info *info)
 	info->time = 0;
 	info->oldTime = 0;
 
-	info->moveSpeed = 0.05;
-	info->rotSpeed = 0.05;
+	info->moveSpeed = 0.2;
+	info->rotSpeed = 0.2;
 }
 
 void	verLine(t_info *info, int x, int y1, int y2, int color)
@@ -177,7 +177,7 @@ void	calc(t_info *info)
 		//choose wall color
 		int	color;
 		if (worldMap[mapX][mapY] == 1)
-			color = 0xFF0000;
+			color = 0x008080;
 		else if (worldMap[mapX][mapY] == 2)
 			color = 0x00FF00;
 		else if (worldMap[mapX][mapY] == 3)

@@ -6,7 +6,7 @@
 #    By: hjung <hjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/22 14:00:47 by hjung             #+#    #+#              #
-#    Updated: 2020/10/23 11:20:45 by hjung            ###   ########.fr        #
+#    Updated: 2020/10/25 19:06:09 by hjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +15,20 @@ CC = gcc
 FLAGS = -Wall -Wextra -Werror
 SRC = main.c
 OBJ = $(SRC:.c=.o)
+LIBFT		= ./Libft/libft.a
 
 all : $(NAME)
 
 %.o: %.c
-	$(CC) $(FLAGS) -Imlx -c $< -o $@
+	$(CC) -Imlx -c $< -o $@
+	# $(CC) $(FLAGS) -Imlx -c $< -o $@
 
-$(NAME) : $(OBJ)
-	$(CC) -L./mlx -lmlx -framework OpenGL -framework AppKit $(OBJ) -o $(NAME)
+$(NAME) : $(OBJ) $(LIBFT)
+	$(CC) $(LIBFT) -L./mlx -lmlx -framework OpenGL -framework AppKit $(OBJ) -o $(NAME)
 
+$(LIBFT):
+	make -C ./Libft
+	
 clean :
 	rm -rf ${OBJ}
 	rm -f a.out

@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/23 15:09:24 by hjung            ###   ########.fr       */
+/*   Updated: 2020/10/25 19:05:09 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <math.h>
+# include "./Libft/libft.h"
 
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
+# define X_EVENT_KEY_EXIT		17
 
 # define KEY_ESC		53
 # define KEY_W			13
@@ -31,11 +34,8 @@
 # define IMG_WIDTH 400
 # define IMG_HEIGHT 300
 
-typedef struct	s_param{
-	int			x;
-	int			y;
-	char		str[3];
-}				t_param;
+# define MAP_WIDTH 15
+# define MAP_HEIGHT 11
 
 typedef struct	s_img
 {
@@ -49,6 +49,15 @@ typedef struct	s_img
 	int			bpp;
 	int			endian;
 }				t_img;
+
+typedef struct	s_game
+{
+	void		*mlx;
+	void		*win;
+	t_img		img;
+
+	int			map[MAP_HEIGHT][MAP_WIDTH];
+}				t_game;
 
 
 #endif
