@@ -97,6 +97,50 @@ void	calc(t_info *info)
 
 		int		hit = 0;	//was there a wall hit?
 		int		side; 		//was a NS or EW wall hit?
+							//if NS ->side = 1, if EW -> side = 0.
+		
+		//calculate step and initial sideDist
+		if (rayDirX < 0)
+		{
+			stepX = -1;
+			sideDistX = (info->posX - mapX) * deltaDistX;
+		}
+		else
+		{
+			stepX = 1;
+			sideDistX = (mapX - info->posX) * deltaDistX;
+		}
+		if (rayDirY < 0)
+		{
+			stepY = -1;
+			sideDistY = (info->posY - mapY) * deltaDistY;
+		}
+		else
+		{
+			stepY = 1;
+			sideDistY = (mapY - info->posY) * deltaDistY;
+		}
+
+		//perform DDA
+		while (hit == 0)
+		{
+			//jump to next map square, OR in x-direction, OR in y-direction
+			if (sideDistX < sideDistY)
+			{
+				sideDistX += deltaDistX;
+				mapX += stepX;
+				side = 0;
+			}
+			else
+			{
+				sideDistY += deltaDistY;
+				mapY += stepY;
+				side = 1;
+			}
+			//Check if ray has hit a wall
+			if (worldMap[mapX][mapY] > 0)
+				hit = 1;
+		}
 		
 		x++;
 	}
