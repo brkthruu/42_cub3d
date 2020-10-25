@@ -1,3 +1,4 @@
+#include "../mlx/mlx.h"
 #define mapWidth 24
 #define mapHeight 24
 #define screenWidth 640
@@ -49,8 +50,27 @@ int	worldMap[mapWidth][mapHeight]=
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
+void	param_init(t_info *info)
+{
+	info->posX = 22;
+	info->posY = 12;
+	info->dirX = -1;
+	info->dirY = 0;
+	info->planeX = 0;
+	info->planeY = 0.66;
+
+	info->time = 0;
+	info->oldTime = 0;
+
+	info->moveSpeed = 0.05;
+	info->rotSpeed = 0.05;
+}
+
 int		main(int argc, char *argv[])
 {
 	t_info	info;
-	
+
+	info.mlx = mlx_init();
+	info.win = mlx_new_window(info.mlx, screenWidth, screenHeight, "lodev_Raycaster");
+	mlx_loop(info.mlx);
 }
