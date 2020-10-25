@@ -1,5 +1,7 @@
 #include "../mlx/mlx.h"
+#include "key_macos.h"
 #include <math.h>
+#include <stdlib.h>
 #define mapWidth 24
 #define mapHeight 24
 #define screenWidth 640
@@ -203,6 +205,50 @@ int		main_loop(t_info *info)
 	return 0;
 }
 
+int	key_press(int key, t_info *info)
+{
+	if (key == KEY_W)
+	{
+		if (!worldMap[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
+			info->posX += info->dirX * info->moveSpeed;
+		if (!worldMap[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
+			info->posY += info->dirY * info->moveSpeed;
+	}
+	//move backwards if no wall behind you
+	if (key == KEY_S)
+	{
+		if (!worldMap[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
+			info->posX -= info->dirX * info->moveSpeed;
+		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
+			info->posY -= info->dirY * info->moveSpeed;
+	}
+	//rotate to the right
+	if (key == KEY_D)
+	{
+		//both camera direction and camera plane must be rotated
+		double oldDirX = info->dirX;
+		info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(-info->rotSpeed);
+		info->dirY = oldDirX * sin(-info->rotSpeed) + info->dirY * cos(-info->rotSpeed);
+		double oldPlaneX = info->planeX;
+		info->planeX = info->planeX * cos(-info->rotSpeed) - info->planeY * sin(-info->rotSpeed);
+		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
+	}
+	//rotate to the left
+	if (key == KEY_A)
+	{
+		//both camera direction and camera plane must be rotated
+		double oldDirX = info->dirX;
+		info->dirX = info->dirX * cos(info->rotSpeed) - info->dirY * sin(info->rotSpeed);
+		info->dirY = oldDirX * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);
+		double oldPlaneX = info->planeX;
+		info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
+		info->planeY = oldPlaneX * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
+	}
+	if (key == KEY_ESC)
+		exit(0);
+	return (0);
+}
+
 int		main(int argc, char *argv[])
 {
 	t_info	info;
@@ -211,6 +257,7 @@ int		main(int argc, char *argv[])
 	info.win = mlx_new_window(info.mlx, screenWidth, screenHeight, "lodev_Raycaster");
 	
 	mlx_loop_hook(info.mlx, &main_loop, &info);
-	
+	mlx_hook(info.win, X_EVENT_KEY_PRESS, 0, &key_press, &info);
+
 	mlx_loop(info.mlx);
 }
