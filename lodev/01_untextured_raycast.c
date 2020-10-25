@@ -255,7 +255,8 @@ int		main(int argc, char *argv[])
 
 	info.mlx = mlx_init();
 	info.win = mlx_new_window(info.mlx, screenWidth, screenHeight, "lodev_Raycaster");
-	
+
+	param_init(&info);
 	mlx_loop_hook(info.mlx, &main_loop, &info);
 	mlx_hook(info.win, X_EVENT_KEY_PRESS, 0, &key_press, &info);
 
