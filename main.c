@@ -2,12 +2,6 @@
 #include "../mlx/mlx.h"
 #include "./cub3d.h"
 
-# define TILE_SIZE 32
-# define ROWS 11
-# define COLS 15
-# define WIDTH COLS * TILE_SIZE
-# define HEIGHT ROWS * TILE_SIZE
-
 # define TO_COORD(X, Y) ((int)floor(Y) * WIDTH + (int)floor(X))
 
 //Draw the line by DDA algorithm
@@ -64,7 +58,7 @@ void	draw_rectangle(t_game *game, int x, int y)
 		j = 0;
 		while (j < TILE_SIZE)
 		{
-			game->img.data[(y  + i) * WIDTH + x + j] = 0xFFFFFF;
+			game->img.data[(y  + i) * WIDTH + x + j] = 0x008080;
 			j++;
 		}
 		i++;
@@ -144,6 +138,8 @@ int		main_loop(t_game *game)
 int		main(void)
 {
 	t_game game;
+	t_map_info map_info;
+	int		parse;
 
 	game_init(&game);
 	window_init(&game);
@@ -151,16 +147,8 @@ int		main(void)
 	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &close_window, &game);
 
+	parse = parse_map(&map_info);
 	mlx_loop_hook(game.mlx, &main_loop, &game);
-	int i = 0, j = 0;
-	for (i = 0 ; i < ROWS; i++)
-	{
-		for (j = 0; j < COLS; j++)
-		{
-			printf("%d", game.map[i][j]);
-		}
-		printf("\n");
-	}
 	mlx_loop(game.mlx);
 	
 }

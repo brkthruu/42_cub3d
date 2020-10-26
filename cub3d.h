@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/25 19:05:09 by hjung            ###   ########.fr       */
+/*   Updated: 2020/10/26 17:33:59 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <math.h>
 # include "./Libft/libft.h"
+# include "./parse_cub/get_next_line.h"
+# include "./parse_cub/parse.h"
 
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
@@ -28,14 +30,15 @@
 # define KEY_S			1
 # define KEY_D			2
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
+# define TILE_SIZE 32
+# define ROWS 11
+# define COLS 15
+# define WIDTH COLS * TILE_SIZE
+# define HEIGHT ROWS * TILE_SIZE
 
 # define IMG_WIDTH 400
 # define IMG_HEIGHT 300
 
-# define MAP_WIDTH 15
-# define MAP_HEIGHT 11
 
 typedef struct	s_img
 {
@@ -56,7 +59,7 @@ typedef struct	s_game
 	void		*win;
 	t_img		img;
 
-	int			map[MAP_HEIGHT][MAP_WIDTH];
+	int			map[ROWS][COLS];
 }				t_game;
 
 
