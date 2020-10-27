@@ -140,6 +140,7 @@ int		main(void)
 	t_game game;
 	t_map_info map_info;
 	int		parse;
+	int		j;
 
 	game_init(&game);
 	window_init(&game);
@@ -148,7 +149,19 @@ int		main(void)
 	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &close_window, &game);
 
 	parse = parse_map(&map_info);
-	printf("map_data : %s", map_info.map);
+	printf("width: %d\n", map_info.cols);
+	printf("height: %d\n", map_info.rows);
+
+	for (int i = 0; i < map_info.rows; i++)
+	{
+		j = 0;
+		while(map_info.map[i][j])
+		{
+			printf("%c", map_info.map[i][j]);
+			j++;
+		}
+		printf("\n");
+	}
 	mlx_loop_hook(game.mlx, &main_loop, &game);
 	mlx_loop(game.mlx);
 	
