@@ -148,6 +148,7 @@ int		main(void)
 	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &close_window, &game);
 
 	parse = parse_map(&map_info);
+	printf("map_data : %s", map_info.map);
 	mlx_loop_hook(game.mlx, &main_loop, &game);
 	mlx_loop(game.mlx);
 	

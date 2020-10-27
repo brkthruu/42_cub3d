@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:46:58 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/26 18:05:01 by hjung            ###   ########.fr       */
+/*   Updated: 2020/10/27 11:39:16 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define PARSE_H
 
 # include "get_next_line.h"
+# include <fcntl.h>
 
 typedef	struct	s_map_info
 {
-	
-	int			*map;
+	char		*map;
 	int			rows;
 	int			cols;
 }				t_map_info;
