@@ -94,6 +94,7 @@ int		deal_key(int key_code, t_game *game)
 int 	close_window(t_game *game)
 {
 	exit(0);
+	return (0);
 }
 
 void	game_init(t_game *game)
@@ -155,7 +156,7 @@ int		main(void)
 	for (int i = 0; i < map_info.rows; i++)
 	{
 		j = 0;
-		while(map_info.map[i][j])
+		while(j < map_info.cols)
 		{
 			printf("%c", map_info.map[i][j]);
 			j++;
@@ -164,5 +165,6 @@ int		main(void)
 	}
 	mlx_loop_hook(game.mlx, &main_loop, &game);
 	mlx_loop(game.mlx);
-	
+
+	return (0);	
 }

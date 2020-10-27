@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:46:58 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/27 14:50:30 by hjung            ###   ########.fr       */
+/*   Updated: 2020/10/27 19:58:02 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ typedef	struct	s_map_info
 }				t_map_info;
 
 int	parse_map(t_map_info *map_info);
+int	chk_map_validity(t_map_info *map_info);
 
 #endif
