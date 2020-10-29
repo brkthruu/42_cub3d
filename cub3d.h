@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/27 17:13:11 by hjung            ###   ########.fr       */
+/*   Updated: 2020/10/29 19:40:49 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,44 @@
 # define IMG_HEIGHT 300
 
 
-typedef struct	s_img
+typedef struct		s_img
 {
-	void		*img_ptr;
-	int			*data;
-	int			img_width;
-	int 		img_height;
+	void			*img_ptr;
+	int				*data;
+	int				img_width;
+	int 			img_height;
 	//아래 3개 값은 이해 안해도 사용하는데 지장이 없음. 
 	//선언한뒤 함수의 인자로만 잘 넣어주면 알아서 정보를 받아나옴.
-	int			size_l;
-	int			bpp;
-	int			endian;
-}				t_img;
+	int				size_l;
+	int				bpp;
+	int				endian;
+}					t_img;
 
-typedef struct	s_game
+typedef	struct		s_cub_info
 {
-	void		*mlx;
-	void		*win;
-	t_img		img;
+	char			*file_name;
+	int				screenWidth;
+	int				screenHeight;
+	char			*texpath_NO;
+	char			*texpath_SO;
+	char			*texpath_WE;
+	char			*texpath_EA;
+	int				rows;
+	int				cols;
+	char			**map;
+}					t_cub_info;
 
-	int			map[ROWS][COLS];
+typedef struct		s_game
+{
+	void			*mlx_ptr;
+	void			*win_ptr;
+	t_img			*img;
+	t_cub_info		*cub_info;
 }				t_game;
 
+int	parse_map(t_game *game, t_cub_info *map_info);
+void	leave(int mod, t_game *game, char *msg);
+
+int		is_whitespace(int c);
 
 #endif

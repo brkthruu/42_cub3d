@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   is_whitespace.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/26 14:46:58 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/29 16:04:14 by hjung            ###   ########.fr       */
+/*   Created: 2020/10/29 19:36:51 by hjung             #+#    #+#             */
+/*   Updated: 2020/10/29 19:44:34 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_H
-# define PARSE_H
+#include "../cub3d.h"
 
-# include "get_next_line.h"
-# include "../cub3d.h"
-# include <fcntl.h>
-
-
-
-#endif
+int		is_whitespace(int c)
+{
+	if (c == '\t' || c == '\n' || c == '\v' ||
+		c == '\f' || c == '\r' || c == ' ')
+		return (1);
+	return (0);
+}

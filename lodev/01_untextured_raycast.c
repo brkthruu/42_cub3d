@@ -16,9 +16,6 @@ typedef	struct s_info
 	double		planeX;
 	double		planeY;
 
-	double		time;
-	double		oldTime;
-
 	void		*mlx;
 	void		*win;
 	double		moveSpeed;
@@ -62,8 +59,6 @@ void	param_init(t_info *info)
 	info->planeX = 0;			//the 2D raycaster version of camera plane
 	info->planeY = 0.66;
 
-	info->time = 0;
-	info->oldTime = 0;
 
 	info->moveSpeed = 0.2;
 	info->rotSpeed = 0.2;
