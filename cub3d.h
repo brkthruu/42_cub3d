@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/30 12:27:32 by hjung            ###   ########.fr       */
+/*   Updated: 2020/10/30 15:08:23 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,6 @@ typedef	struct		s_cub_info
 	char			*file_name;
 	int				screenWidth;
 	int				screenHeight;
-	char			*texpath_NO;
-	char			*texpath_SO;
-	char			*texpath_WE;
-	char			*texpath_EA;
 	int				rows;
 	int				cols;
 	char			**map;
@@ -72,10 +68,11 @@ typedef struct		s_game
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_img			*img;
+	t_img			**textures;
 	t_cub_info		*cub_info;
 }					t_game;
 
-int	parse_map(t_game *game);
+int		parse_map(t_game *game);
 void	leave(int mod, t_game *game, char *msg);
 
 int		is_whitespace(int c);

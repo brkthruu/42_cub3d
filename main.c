@@ -97,24 +97,6 @@ int 	close_window(t_game *game)
 	return (0);
 }
 
-void	game_init(t_game *game)
-{	
-	int map[ROWS][COLS] = {
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-	{1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-	{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-	};
-	ft_memcpy(game->cub_info->map, map, sizeof(int) * ROWS * COLS);
-}
-
 void	window_init(t_game *game)
 {
 	game->mlx_ptr = mlx_init();
@@ -148,12 +130,12 @@ void	leave(int mod, t_game *game, char *msg)
 
 int		main(void)
 {
-	t_game game;
+	t_game	game;
 	int		parse;
 	int		j;
 
-	// game_init(&game);
-	// window_init(&game);
+	 game_init(&game);
+	 window_init(&game);
 	// img_init(&game);
 	// mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	// mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
@@ -161,9 +143,10 @@ int		main(void)
 	parse = parse_map(&game);
 	printf("parsed screenWidth: %d\n", game.cub_info->screenWidth);
 	printf("parsed screenHeight: %d\n", game.cub_info->screenHeight);
+	mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.textures[1]->img_ptr, 50, 50);
 
 	// mlx_loop_hook(game.mlx_ptr, &main_loop, &game);
-	// mlx_loop(game.mlx_ptr);
+	 mlx_loop(game.mlx_ptr);
 
 	return (0);	
 }

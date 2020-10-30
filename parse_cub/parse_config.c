@@ -6,15 +6,25 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:31:12 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/30 13:44:47 by hjung            ###   ########.fr       */
+/*   Updated: 2020/10/30 14:31:56 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "../cub3d.h"
-static int	set_texture(t_game *game, char *line)
+static int	set_texture(t_game *game, char *line, int tex_index)
 {
-		
+	if (!(game->textures[tex_index]->img_ptr =
+		mlx_xpm_file_to_image(game->mlx_ptr, (char *)line,
+		&game->textures[tex_index]->img_width,
+		&game->textures[tex_index]->img_height)))
+		return (0);
+	game->textures[tex_index]->data =
+		mlx_get_data_addr(game->textures[tex_index]->img_ptr,
+		&game->textures[tex_index]->bpp,
+		&game->textures[tex_index]->size_l,
+		&game->textures[tex_index]->endian);
+	return (1);
 }
 
 static int	parse_scr_size(t_game *game, char *line)
@@ -40,7 +50,13 @@ static int	classify(t_game *game, char *line)
 	if (line[0] == 'R')
 		return (parse_scr_size(game, line));
 	else if (line[0] == 'N' && line[1] == 'O')
-		return (0);
+		return (set_texture(game, line, 0));
+	else if (line[0] == 'S' && line[1] == 'O')
+		return (set_texture(game, line, 1));
+	else if (line[0] == 'W' && line[1] == 'E')
+		return (set_texture(game, line, 2));
+	else if (line[0] == 'E' && line[1] == 'A')
+		return (set_texture(game, line, 3));	
 	return (1);
 
 }
