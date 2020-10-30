@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/29 19:40:49 by hjung            ###   ########.fr       */
+/*   Updated: 2020/10/30 12:27:32 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@
 
 typedef struct		s_img
 {
-	void			*img_ptr;
-	int				*data;
 	int				img_width;
 	int 			img_height;
 	//아래 3개 값은 이해 안해도 사용하는데 지장이 없음. 
@@ -51,6 +49,8 @@ typedef struct		s_img
 	int				size_l;
 	int				bpp;
 	int				endian;
+	void			*img_ptr;
+	int				*data;
 }					t_img;
 
 typedef	struct		s_cub_info
@@ -73,9 +73,9 @@ typedef struct		s_game
 	void			*win_ptr;
 	t_img			*img;
 	t_cub_info		*cub_info;
-}				t_game;
+}					t_game;
 
-int	parse_map(t_game *game, t_cub_info *map_info);
+int	parse_map(t_game *game);
 void	leave(int mod, t_game *game, char *msg);
 
 int		is_whitespace(int c);

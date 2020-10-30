@@ -6,40 +6,46 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:31:12 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/29 19:45:04 by hjung            ###   ########.fr       */
+/*   Updated: 2020/10/30 13:44:47 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "../cub3d.h"
+static int	set_texture(t_game *game, char *line)
+{
+		
+}
 
-static int parse_scr_size(t_cub_info *cub_info, char *line)
+static int	parse_scr_size(t_game *game, char *line)
 {
 	int		i;
 
 	i = 2;
 	if (!is_whitespace(line[1]))
 		return (0);
-	cub_info->screenWidth = ft_atoi(ft_strchr(line, ' ') + 1);
+	game->cub_info->screenWidth = ft_atoi(ft_strchr(line, ' ') + 1);
 	while (!is_whitespace(line[i]))
 	{
 		if (!line[i])
 			return (0);
 		i++;
 	}
-	cub_info->screenHeight = ft_atoi(&line[i] + 1);
+	game->cub_info->screenHeight = ft_atoi(&line[i] + 1);
 	return (1);
 }
 
-static int	classify(t_cub_info *cub_info, char *line)
+static int	classify(t_game *game, char *line)
 {
 	if (line[0] == 'R')
-		return (parse_scr_size(cub_info, line));
+		return (parse_scr_size(game, line));
+	else if (line[0] == 'N' && line[1] == 'O')
+		return (0);
 	return (1);
 
 }
 
-int	parse_map(t_game *game, t_cub_info *map_info)
+int	parse_map(t_game *game)
 {
 	int		ret;
 	int		fd;
@@ -49,7 +55,7 @@ int	parse_map(t_game *game, t_cub_info *map_info)
 	while (fd >= 0 && (ret = (get_next_line(fd, &line)) > 0))
 	{
 		printf("%s\n", line);
-		if (classify(map_info, line) == 0)
+		if (classify(game, line) == 0)
 			leave(1, game, "map parsing err\n");
 		free(line);
 	}

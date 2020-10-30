@@ -149,7 +149,6 @@ void	leave(int mod, t_game *game, char *msg)
 int		main(void)
 {
 	t_game game;
-	t_cub_info cub_info;
 	int		parse;
 	int		j;
 
@@ -159,9 +158,9 @@ int		main(void)
 	// mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	// mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
 
-	parse = parse_map(&game, &cub_info);
-	printf("parsed screenWidth: %d\n", cub_info.screenWidth);
-	printf("parsed screenHeight: %d\n", cub_info.screenHeight);
+	parse = parse_map(&game);
+	printf("parsed screenWidth: %d\n", game.cub_info->screenWidth);
+	printf("parsed screenHeight: %d\n", game.cub_info->screenHeight);
 
 	// mlx_loop_hook(game.mlx_ptr, &main_loop, &game);
 	// mlx_loop(game.mlx_ptr);
