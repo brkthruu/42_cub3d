@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/30 15:08:23 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/01 14:56:36 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "./Libft/libft.h"
 # include "./parse_cub/get_next_line.h"
 # include "./parse_cub/parse.h"
+# include "./mlx/mlx.h"
 
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
@@ -58,9 +59,12 @@ typedef	struct		s_cub_info
 	char			*file_name;
 	int				screenWidth;
 	int				screenHeight;
+	int				color_floor;
+	int				color_ceil;
 	int				rows;
 	int				cols;
 	char			**map;
+	t_img			**textures;
 }					t_cub_info;
 
 typedef struct		s_game
@@ -68,9 +72,13 @@ typedef struct		s_game
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_img			*img;
-	t_img			**textures;
 	t_cub_info		*cub_info;
+	
 }					t_game;
+
+void	init_game(t_game *game);
+void	init_cub_info(t_game *game);
+int		init_textures(t_game *game, int nbr_textures);
 
 int		parse_map(t_game *game);
 void	leave(int mod, t_game *game, char *msg);

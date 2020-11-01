@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:31:12 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/30 14:31:56 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/01 14:58:29 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,20 @@
 #include "../cub3d.h"
 static int	set_texture(t_game *game, char *line, int tex_index)
 {
-	if (!(game->textures[tex_index]->img_ptr =
+	if (!(game->cub_info->textures[tex_index]->img_ptr =
 		mlx_xpm_file_to_image(game->mlx_ptr, (char *)line,
-		&game->textures[tex_index]->img_width,
-		&game->textures[tex_index]->img_height)))
-		return (0);
-	game->textures[tex_index]->data =
-		mlx_get_data_addr(game->textures[tex_index]->img_ptr,
-		&game->textures[tex_index]->bpp,
-		&game->textures[tex_index]->size_l,
-		&game->textures[tex_index]->endian);
+		&game->cub_info->textures[tex_index]->img_width,
+		&game->cub_info->textures[tex_index]->img_height)))
+		{
+			printf("return zero\n");
+			return (0);
+		}
+
+	game->cub_info->textures[tex_index]->data =
+		mlx_get_data_addr(game->cub_info->textures[tex_index]->img_ptr,
+		&game->cub_info->textures[tex_index]->bpp,
+		&game->cub_info->textures[tex_index]->size_l,
+		&game->cub_info->textures[tex_index]->endian);
 	return (1);
 }
 
