@@ -6,11 +6,11 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 17:13:50 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/29 16:03:33 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/01 18:25:53 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
+#include "../cub3d.h"
 
 static void	copy_line_data(char *map_info, char *line)
 {
@@ -24,7 +24,7 @@ static void	copy_line_data(char *map_info, char *line)
 	}
 }
 
-static void	parse_map_data(t_map_info *map_info)
+static void	parse_map_data(t_game *game)
 {
 	int		i;
 	int		ret;
@@ -49,7 +49,7 @@ static void	parse_map_data(t_map_info *map_info)
 	close(fd);
 }
 
-static void	get_map_size(t_map_info *map_info)
+static void	get_map_size(t_game *game)
 {
 	int		ret;
 	int		fd;
@@ -72,13 +72,13 @@ static void	get_map_size(t_map_info *map_info)
 	close(fd);
 }
 
-int	parse_map(t_map_info *map_info)
+int	parse_map(t_game *game)
 {
 	int a = 0;
 
-	get_map_size(map_info);
-	parse_map_data(map_info);
-	a = chk_map_validity(map_info);
+	get_map_size(game);
+	parse_map_data(game);
+	a = chk_map_validity(game);
 	printf("valid map : %s\n", a ? "True" : "False");
 	return (a);
 }

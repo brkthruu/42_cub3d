@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:31:12 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/01 17:08:34 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/01 18:25:48 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,13 @@ static int	classify(t_game *game, char *line)
 		return (set_texture(game, &line[3], 3));
 	else if (line[0] == 'F' || line[0] == 'C')
 		return (parse_color(game, line, line[0]));
+	// else if (is_map(line))
+	// 	parse_map(t_game, line);
 	return (1);
 
 }
 
-int			parse_map(t_game *game)
+int			parse_config(t_game *game)
 {
 	int		ret;
 	int		fd;

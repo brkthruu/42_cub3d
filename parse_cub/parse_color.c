@@ -6,15 +6,15 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 17:09:54 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/01 18:08:55 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/01 18:14:08 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int		get_num_color(char *line, int *i)
+static int	get_num_color(char *line, int *i)
 {
-	int	color;
+	int		color;
 
 	color = ft_atoi(&line[*i]);
 	if (color < 0 || color > 255)
@@ -25,13 +25,13 @@ int		get_num_color(char *line, int *i)
 	return (color);
 }
 
-int		parse_color(t_game *game, char *line, char opt)
+int			parse_color(t_game *game, char *line, char opt)
 {
-	int	i;
-	int	r;
-	int	g;
-	int b;
-	int	rgb;
+	int		i;
+	int		r;
+	int		g;
+	int		b;
+	int		rgb;
 
 	i = 1;
 	if (line[1] != ' ')

@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/01 17:11:38 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/01 18:16:07 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	init_game(t_game *game);
 void	init_cub_info(t_game *game);
 int		init_textures(t_game *game, int nbr_textures);
 
-int		parse_map(t_game *game);
+int		parse_config(t_game *game);
 int		parse_color(t_game *game, char *line, char opt);
 void	leave(int mod, t_game *game, char *msg);
 

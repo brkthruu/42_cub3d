@@ -154,6 +154,7 @@ int		main(void)
 {
 	t_game	game;
 	int		parse;
+	int		i;
 	int		j;
 
 	init_game(&game);
@@ -164,7 +165,7 @@ int		main(void)
 	init_cub_info(&game);
 	if (!init_textures(&game, 4))
 		printf("texture initialize err\n");
-	parse = parse_map(&game);
+	parse = parse_config(&game);
 	printf("parsed screenWidth: %d\n", game.cub_info->screenWidth);
 	printf("parsed screenHeight: %d\n", game.cub_info->screenHeight);
 	printf("floor color: %d\n", game.cub_info->color_floor);
@@ -174,6 +175,16 @@ int		main(void)
 	mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.cub_info->textures[2]->img_ptr, 70, 70);
 	mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.cub_info->textures[3]->img_ptr, 100, 100);
 
+	i = 0;
+	j = 0;
+	/*
+	for (i = 0 ; i < game.cub_info->screenHeight ; i++)
+	{
+		for (j = 0; j < game.cub_info->screenWidth; j++)
+			printf("%d", game.cub_info->map[i][j]);
+		printf("\n");
+	}
+	*/	
 	// mlx_loop_hook(game.mlx_ptr, &main_loop, &game);
 	 mlx_loop(game.mlx_ptr);
 
