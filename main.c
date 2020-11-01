@@ -108,11 +108,11 @@ int	init_textures(t_game *game, int nbr_textures)
 	int count;
 
 	count = 0;
-	if (!(game->cub_info->textures = malloc(sizeof(t_img *) * nbr_textures + 10)))
+	if (!(game->cub_info->textures = malloc(sizeof(t_img *) * nbr_textures )))
 		return (0);
 	while (count < nbr_textures)
 	{
-		if (!(game->cub_info->textures[count] = malloc(sizeof(t_img) + 10)))
+		if (!(game->cub_info->textures[count] = malloc(sizeof(t_img))))
 			return (0);
 		ft_bzero(game->cub_info->textures[count], sizeof(t_img));
 		count++;
@@ -124,11 +124,11 @@ void	init_cub_info(t_game *game)
 {
 	game->cub_info = malloc(sizeof(t_cub_info));
 }
-
+   
 void	img_init(t_game *game)
 {
 	game->img->img_ptr = mlx_new_image(game->mlx_ptr, WIDTH, HEIGHT);
-	game->img->data = (int *)mlx_get_data_addr(game->img->img_ptr, &game->img->bpp, &game->img->size_l, &game->img->endian);
+	game->img->data = mlx_get_data_addr(game->img->img_ptr, &game->img->bpp, &game->img->size_l, &game->img->endian);
 }
 
 int		main_loop(t_game *game)
@@ -167,7 +167,12 @@ int		main(void)
 	parse = parse_map(&game);
 	printf("parsed screenWidth: %d\n", game.cub_info->screenWidth);
 	printf("parsed screenHeight: %d\n", game.cub_info->screenHeight);
+	printf("floor color: %d\n", game.cub_info->color_floor);
+	printf("ceil color: %d\n", game.cub_info->color_ceil);
+	mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.cub_info->textures[0]->img_ptr, 0, 0);
 	mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.cub_info->textures[1]->img_ptr, 50, 50);
+	mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.cub_info->textures[2]->img_ptr, 70, 70);
+	mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.cub_info->textures[3]->img_ptr, 100, 100);
 
 	// mlx_loop_hook(game.mlx_ptr, &main_loop, &game);
 	 mlx_loop(game.mlx_ptr);

@@ -6,7 +6,7 @@
 #    By: hjung <hjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/22 14:00:47 by hjung             #+#    #+#              #
-#    Updated: 2020/10/29 19:49:20 by hjung            ###   ########.fr        #
+#    Updated: 2020/11/01 17:14:07 by hjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ CC = gcc
 FLAGS = -Wall -Wextra -Werror
 SRC	=	main.c \
 		parse_cub/get_next_line.c \
-		parse_cub/parse_config.c \
-		utils/is_whitespace.c
+		parse_cub/parse_config.c parse_cub/parse_color.c\
+		utils/is_whitespace.c 
 		
 OBJ = $(SRC:.c=.o)
 LIBFT		= ./Libft/libft.a

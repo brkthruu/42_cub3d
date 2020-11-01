@@ -1,6 +1,10 @@
 R 1920 1080
-NO ./textures/xpm.xpm
-SO ./textures/xpm.xpm
+NO ./textures/noxpm.xpm
+SO ./textures/soxpm.xpm
+WE ./textures/wexpm.xpm
+EA ./textures/eaxpm.xpm
+F      250,      80   , 80
+C 225,30,0
         1111111111111111111111111
         1000000000110000000000001
         1011000001110000002000001

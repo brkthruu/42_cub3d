@@ -6,11 +6,9 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:36:16 by hjung             #+#    #+#             */
-/*   Updated: 2020/10/28 14:04:52 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/01 17:11:51 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "parse.h"
 
 static int	chk_map_validity_space(t_map_info *map_info, int i, int j)
 {

@@ -6,12 +6,12 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:31:12 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/01 14:58:29 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/01 17:08:34 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
 #include "../cub3d.h"
+
 static int	set_texture(t_game *game, char *line, int tex_index)
 {
 	if (!(game->cub_info->textures[tex_index]->img_ptr =
@@ -54,18 +54,20 @@ static int	classify(t_game *game, char *line)
 	if (line[0] == 'R')
 		return (parse_scr_size(game, line));
 	else if (line[0] == 'N' && line[1] == 'O')
-		return (set_texture(game, line, 0));
+		return (set_texture(game, &line[3], 0));
 	else if (line[0] == 'S' && line[1] == 'O')
-		return (set_texture(game, line, 1));
+		return (set_texture(game, &line[3], 1));
 	else if (line[0] == 'W' && line[1] == 'E')
-		return (set_texture(game, line, 2));
+		return (set_texture(game, &line[3], 2));
 	else if (line[0] == 'E' && line[1] == 'A')
-		return (set_texture(game, line, 3));	
+		return (set_texture(game, &line[3], 3));
+	else if (line[0] == 'F' || line[0] == 'C')
+		return (parse_color(game, line, line[0]));
 	return (1);
 
 }
 
-int	parse_map(t_game *game)
+int			parse_map(t_game *game)
 {
 	int		ret;
 	int		fd;

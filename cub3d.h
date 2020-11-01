@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/01 14:56:36 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/01 17:11:38 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+# include <fcntl.h>
 # include "./Libft/libft.h"
 # include "./parse_cub/get_next_line.h"
-# include "./parse_cub/parse.h"
 # include "./mlx/mlx.h"
 
 # define X_EVENT_KEY_PRESS		2
@@ -51,7 +51,7 @@ typedef struct		s_img
 	int				bpp;
 	int				endian;
 	void			*img_ptr;
-	int				*data;
+	char			*data;
 }					t_img;
 
 typedef	struct		s_cub_info
@@ -81,6 +81,7 @@ void	init_cub_info(t_game *game);
 int		init_textures(t_game *game, int nbr_textures);
 
 int		parse_map(t_game *game);
+int		parse_color(t_game *game, char *line, char opt);
 void	leave(int mod, t_game *game, char *msg);
 
 int		is_whitespace(int c);
