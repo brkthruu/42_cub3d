@@ -6,13 +6,13 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 17:13:50 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/02 17:04:28 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/02 18:13:52 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	move_map_data(t_game *game, char *buf_map)
+int	copy_map_data(t_game *game, char *buf_map)
 {
 	int		row;
 	int		i;

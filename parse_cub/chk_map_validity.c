@@ -6,11 +6,68 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:36:16 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/02 17:36:44 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/02 18:53:34 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+static void	set_player(t_game *game, char c)
+{
+	if (c == 'N')
+	{
+		game->player->dir_y = 1.0;
+		game->player->plane_x = 0.66;
+		game->player->plane_y = 0.0;
+	}
+	else if (c == 'S')
+	{
+		game->player->dir_y = -1;
+		game->player->plane_x = -0.66;
+		game->player->plane_y = 0.0;
+	}
+	else if (c == 'E')
+	{
+		game->player->dir_x = 1;
+		game->player->plane_x = 0.0;
+		game->player->plane_y = 0.66;
+	}
+	else if (c == 'W')
+	{
+		game->player->dir_x = -1;
+		game->player->plane_x = 0.0;
+		game->player->plane_y = 0.66;
+	}
+}
+
+static int	parse_player_info(t_game *game)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < game->cub_info->rows)
+	{
+		j = 0;
+		while (j < game->cub_info->cols)
+		{
+			if (game->cub_info->map[i][j] == 'N'
+				|| game->cub_info->map[i][j] == 'S'
+				|| game->cub_info->map[i][j] == 'W'
+				|| game->cub_info->map[i][j] == 'E')
+			{
+				game->player->pos_x = (double)j;
+				game->player->pos_y = (double)i;
+				set_player(game, game->cub_info->map[i][j]);
+			}
+			j++;
+		}
+		i++;
+	}
+	if (game->player->pos_x < 0)
+		return (0);
+	return (1);
+}
 
 static int	chk_map_validity_space(t_game *game, int i, int j)
 {

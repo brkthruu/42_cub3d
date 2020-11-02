@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/02 17:03:56 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/02 18:56:31 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,27 @@ typedef	struct		s_cub_info
 	t_img			**textures;
 }					t_cub_info;
 
+typedef	struct			s_player
+{
+	double				pos_x;
+	double				pos_y;
+	double				speed;
+	double				dir_x;
+	double				dir_y;
+	double				plane_x;
+	double				plane_y;
+	double				rotate_speed;
+	double				cam_height;
+	int					health;
+}						t_player;
+
 typedef struct		s_game
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_img			*img;
 	t_cub_info		*cub_info;
-	
+	t_player		*player;
 }					t_game;
 
 void	init_game(t_game *game);
@@ -84,7 +98,7 @@ int		parse_config(t_game *game);
 int		parse_color(t_game *game, char *line, char opt);
 
 int		generate_buf_map(t_game *game, char *line, char **buf_map);
-int		move_map_data(t_game *game, char *buf_map);
+int		copy_map_data(t_game *game, char *buf_map);
 int		chk_map_validity(t_game *game);
 
 void	leave(int mod, t_game *game, char *msg);

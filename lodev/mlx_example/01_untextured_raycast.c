@@ -6,11 +6,11 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 12:12:25 by yohan             #+#    #+#             */
-/*   Updated: 2020/10/30 15:35:39 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/02 18:06:02 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx/mlx.h"
+#include "../../mlx/mlx.h"
 #include "key_macos.h"
 #include <math.h>
 #include <string.h>

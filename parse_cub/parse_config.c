@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:31:12 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/02 17:10:36 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/02 18:17:41 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int			parse_config(t_game *game)
 			break ;
 	}
 	close(fd);
-	if (!move_map_data(game, buf_map) || !chk_map_validity(game))
+	if (!copy_map_data(game, buf_map) || !chk_map_validity(game))
 		return (0);
 	return (1);
 }
