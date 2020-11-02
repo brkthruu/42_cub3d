@@ -6,13 +6,13 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 17:13:50 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/02 14:25:00 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/02 17:04:28 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	move_map_data(t_game *game, char *buf_map)
+int	move_map_data(t_game *game, char *buf_map)
 {
 	int		row;
 	int		i;
@@ -47,6 +47,5 @@ int			generate_buf_map(t_game *game, char *line, char **buf_map)
 	game->cub_info->rows += 1;
 	if (ft_strlen(line) > game->cub_info->cols)
 		game->cub_info->cols = ft_strlen(line);
-	move_map_data(game, *buf_map);
-	return (chk_map_validity(game));
+	return (1);
 }

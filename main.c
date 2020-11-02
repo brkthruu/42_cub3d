@@ -161,13 +161,14 @@ int		main(void)
 
 	init_game(&game);
 	// img_init(&game);
-	// mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
-	// mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
+	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
+	mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
 
 	init_cub_info(&game);
 	if (!init_textures(&game, 4))
 		printf("texture initialize err\n");
-	parse = parse_config(&game);
+	if (!parse_config(&game))
+		leave(1, &game, "invalid map\n");
 	printf("parsed screenWidth: %d\n", game.cub_info->screenWidth);
 	printf("parsed screenHeight: %d\n", game.cub_info->screenHeight);
 	printf("floor color: %d\n", game.cub_info->color_floor);

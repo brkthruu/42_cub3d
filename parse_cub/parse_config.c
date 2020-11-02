@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:31:12 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/02 14:16:07 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/02 17:10:36 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ int			parse_config(t_game *game)
 	fd = open("map/map.cub", O_RDONLY);
 	while (fd >= 0 && (ret = (get_next_line(fd, &line))) != -1)
 	{
-		printf("%s\n", line);
 		if (classify(game, line, &buf_map) == 0)
 			leave(1, game, "map parsing err\n");
 		free(line);
 		if (ret == 0)
 			break ;
 	}
-	printf("buff_map:\n%s\n", buf_map);
 	close(fd);
-	return (0);
+	if (!move_map_data(game, buf_map) || !chk_map_validity(game))
+		return (0);
+	return (1);
 }
