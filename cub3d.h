@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/02 18:56:31 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/02 20:03:36 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,10 @@ typedef struct		s_game
 	t_player		*player;
 }					t_game;
 
-void	init_game(t_game *game);
-void	init_cub_info(t_game *game);
+int		init_game(t_game *game);
+int		init_cub_info(t_game *game);
 int		init_textures(t_game *game, int nbr_textures);
+int 	init_player(t_game *game);
 
 int		parse_config(t_game *game);
 int		parse_color(t_game *game, char *line, char opt);

@@ -97,34 +97,14 @@ int 	close_window(t_game *game)
 	return (0);
 }
 
-void	init_game(t_game *game)
+int	init_game(t_game *game)
 {
 	game->mlx_ptr = mlx_init();
-	game->win_ptr = mlx_new_window(game->mlx_ptr, WIDTH, HEIGHT, "mlx 42");
-}
-
-int	init_textures(t_game *game, int nbr_textures)
-{
-	int count;
-
-	count = 0;
-	if (!(game->cub_info->textures = malloc(sizeof(t_img *) * nbr_textures )))
+	if (!init_cub_info(game) || !init_textures(game, 4)
+		|| !init_player(game))
 		return (0);
-	while (count < nbr_textures)
-	{
-		if (!(game->cub_info->textures[count] = malloc(sizeof(t_img))))
-			return (0);
-		ft_bzero(game->cub_info->textures[count], sizeof(t_img));
-		count++;
-	}
+	game->win_ptr = mlx_new_window(game->mlx_ptr, WIDTH, HEIGHT, "CUB3D");
 	return (1);
-}
-
-void	init_cub_info(t_game *game)
-{
-	game->cub_info = malloc(sizeof(t_cub_info));
-	game->cub_info->rows = 0;
-	game->cub_info->cols = 0;
 }
    
 void	img_init(t_game *game)
@@ -155,26 +135,26 @@ void	leave(int mod, t_game *game, char *msg)
 int		main(void)
 {
 	t_game	game;
-	int		parse;
 	int		i;
 	int		j;
 
-	init_game(&game);
+	if (!init_game(&game))
+		return (0);
 	// img_init(&game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
 
-	init_cub_info(&game);
-	if (!init_textures(&game, 4))
-		printf("texture initialize err\n");
 	if (!parse_config(&game))
 		leave(1, &game, "invalid map\n");
+	
+	
 	printf("parsed screenWidth: %d\n", game.cub_info->screenWidth);
 	printf("parsed screenHeight: %d\n", game.cub_info->screenHeight);
 	printf("floor color: %d\n", game.cub_info->color_floor);
 	printf("ceil color: %d\n", game.cub_info->color_ceil);
 	printf("parsed mapWidth: %d\n", game.cub_info->cols);
 	printf("parsed mapHeight: %d\n", game.cub_info->rows);
+	printf("parsed player dir_y : %lf\n", game.player->dir_y);
 	mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.cub_info->textures[0]->img_ptr, 0, 0);
 	mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.cub_info->textures[1]->img_ptr, 50, 50);
 	mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.cub_info->textures[2]->img_ptr, 70, 70);
