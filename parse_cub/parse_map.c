@@ -6,79 +6,47 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 17:13:50 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/01 18:25:53 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/02 14:25:00 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	copy_line_data(char *map_info, char *line)
+static int	move_map_data(t_game *game, char *buf_map)
 {
+	int		row;
 	int		i;
+	int		j;
 
+	if (!(game->cub_info->map = malloc(sizeof(char *) * game->cub_info->rows)))
+		return (0);
+	row = 0;
 	i = 0;
-	while (line[i])
+	while (row < game->cub_info->rows)
 	{
-		map_info[i] = line[i];
+		if (!(game->cub_info->map[row] = (char *)malloc(game->cub_info->cols)))
+			return (0);
+		ft_bzero(game->cub_info->map[row], game->cub_info->cols);
+		j = 0;
+		while (buf_map[i] != '\n')
+		{
+			game->cub_info->map[row][j] = buf_map[i];
+			i++;
+			j++;
+		}
+		row++;
 		i++;
 	}
+	return (1);
 }
 
-static void	parse_map_data(t_game *game)
+int			generate_buf_map(t_game *game, char *line, char **buf_map)
 {
-	int		i;
-	int		ret;
-	int		fd;
-	char	*line;
-
-	map_info->map = (char **)malloc(sizeof(char *) * map_info->rows);
-	fd = open("map/map.cub", O_RDONLY);
-	i = 0;
-	while (fd >= 0 && (ret = get_next_line(fd, &line)) > 0)
-	{
-		map_info->map[i] = (char *)malloc(sizeof(char) * map_info->cols);
-		ft_bzero(map_info->map[i], map_info->cols);
-		copy_line_data(map_info->map[i], line);
-		free(line);
-		i++;
-	}
-	map_info->map[i] = (char *)malloc(sizeof(char) * map_info->cols);
-	ft_bzero(map_info->map[i], map_info->cols);
-	copy_line_data(map_info->map[i], line);
-	free(line);
-	close(fd);
-}
-
-static void	get_map_size(t_game *game)
-{
-	int		ret;
-	int		fd;
-	char	*line;
-
-	map_info->rows = 0;
-	map_info->cols = 0;
-	fd = open("map/map.cub", O_RDONLY);
-	while (fd >= 0 && (ret = (get_next_line(fd, &line)) > 0))
-	{
-		if (ft_strlen(line) > map_info->cols)
-			map_info->cols = ft_strlen(line);
-		map_info->rows += 1;
-		free(line);
-	}
-	if (ft_strlen(line) > map_info->cols)
-		map_info->cols = ft_strlen(line);
-	map_info->rows += 1;
-	free(line);
-	close(fd);
-}
-
-int	parse_map(t_game *game)
-{
-	int a = 0;
-
-	get_map_size(game);
-	parse_map_data(game);
-	a = chk_map_validity(game);
-	printf("valid map : %s\n", a ? "True" : "False");
-	return (a);
+	*buf_map = ft_strjoin(*buf_map, line);
+	*buf_map = ft_strjoin(*buf_map, "\n");
+	game->cub_info->rows += 1;
+	if (ft_strlen(line) > game->cub_info->cols)
+		game->cub_info->cols = ft_strlen(line);
+	move_map_data(game, *buf_map);
+	return (chk_map_validity(game));
 }

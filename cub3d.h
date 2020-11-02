@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/01 18:16:07 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/02 14:26:57 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ int		init_textures(t_game *game, int nbr_textures);
 
 int		parse_config(t_game *game);
 int		parse_color(t_game *game, char *line, char opt);
+
+int		generate_buf_map(t_game *game, char *line, char **buf_map);
+int		chk_map_validity(t_game *game);
+
 void	leave(int mod, t_game *game, char *msg);
 
 int		is_whitespace(int c);
