@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:31:12 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/02 18:17:41 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/03 10:53:19 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ static int	parse_scr_size(t_game *game, char *line)
 	i = 2;
 	if (!is_whitespace(line[1]))
 		return (0);
-	game->cub_info->screenWidth = ft_atoi(ft_strchr(line, ' ') + 1);
+	game->cub_info->scr_width = ft_atoi(ft_strchr(line, ' ') + 1);
 	while (!is_whitespace(line[i]))
 	{
 		if (!line[i])
 			return (0);
 		i++;
 	}
-	game->cub_info->screenHeight = ft_atoi(&line[i] + 1);
+	game->cub_info->scr_height = ft_atoi(&line[i] + 1);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/02 20:03:36 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/03 11:57:28 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ typedef struct		s_img
 typedef	struct		s_cub_info
 {
 	char			*file_name;
-	int				screenWidth;
-	int				screenHeight;
+	int				scr_width;
+	int				scr_height;
 	int				color_floor;
 	int				color_ceil;
 	int				rows;

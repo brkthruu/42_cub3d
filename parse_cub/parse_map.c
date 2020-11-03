@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 17:13:50 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/02 18:13:52 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/03 11:59:06 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	copy_map_data(t_game *game, char *buf_map)
 	int		i;
 	int		j;
 
-	if (!(game->cub_info->map = malloc(sizeof(char *) * game->cub_info->rows)))
+	if (!(game->cub_info->map = (char **)malloc(sizeof(char *) * game->cub_info->rows)))
 		return (0);
 	row = 0;
 	i = 0;

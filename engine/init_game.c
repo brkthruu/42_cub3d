@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 19:45:00 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/02 19:56:45 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/03 11:54:05 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int init_player(t_game *game)
     if (!(game->player = malloc(sizeof(t_player))))
         return (0);
     game->player->pos_x = -1.0;
+	game->player->dir_x = 0;
+	game->player->dir_y = 0;
+	game->player->speed = 0.05;
+	game->player->rotate_speed = 0.05;
     return (1);
 }
 
