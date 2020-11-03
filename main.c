@@ -2,13 +2,6 @@
 #include "../mlx/mlx.h"
 #include "./cub3d.h"
 
-int		deal_key(int key_code, t_game *game)
-{
-	if (key_code == KEY_ESC)
-		exit(0);
-	return (0);
-}
-
 int 	close_window(t_game *game)
 {
 	exit(0);
@@ -94,7 +87,7 @@ void	calc(t_game *game)
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (game->cub_info->map[mapY][mapX] > 0)
+			if (game->cub_info->map[mapX][mapY] > '0')
 				hit = 1;
 		}
 		if (side == 0)
@@ -114,13 +107,13 @@ void	calc(t_game *game)
 			drawEnd = game->cub_info->scr_height - 1;
 
 		int	color;
-		if (game->cub_info->map[mapY][mapX] == 1)
-			color = 0xFF0000;
-		else if (game->cub_info->map[mapY][mapX] == 2)
+		if (game->cub_info->map[mapX][mapY] == '1')
+			color = game->cub_info->color_floor;
+		else if (game->cub_info->map[mapX][mapY] == '2')
 			color = 0x00FF00;
-		else if (game->cub_info->map[mapY][mapX] == 3)
+		else if (game->cub_info->map[mapX][mapY] == '3')
 			color = 0x0000FF;
-		else if (game->cub_info->map[mapY][mapX] == 4)
+		else if (game->cub_info->map[mapX][mapY] == '4')
 			color = 0xFFFFFF;
 		else
 			color = 0xFFFF00;
@@ -163,6 +156,50 @@ int	init_game(t_game *game)
 	return (1);
 }
 
+int	deal_key(int key, t_game *game)
+{
+	printf("current positon : %lf %lf\n", game->player->pos_x, game->player->pos_y);
+	if (key == KEY_W)
+	{
+		if (game->cub_info->map[(int)(game->player->pos_x + game->player->dir_x * game->player->speed)][(int)(game->player->pos_y)] == '0')
+			game->player->pos_x += game->player->dir_x * game->player->speed;
+		if (game->cub_info->map[(int)(game->player->pos_x)][(int)(game->player->pos_y + game->player->dir_y * game->player->speed)] == '0')
+			game->player->pos_y += game->player->dir_y * game->player->speed;
+	}
+	//move backwards if no wall behind you
+	if (key == KEY_S)
+	{
+		if (game->cub_info->map[(int)(game->player->pos_x - game->player->dir_x * game->player->speed)][(int)(game->player->pos_y)] == '0')
+			game->player->pos_x -= game->player->dir_x * game->player->speed;
+		if (game->cub_info->map[(int)(game->player->pos_x)][(int)(game->player->pos_y - game->player->dir_y * game->player->speed)] == '0')
+			game->player->pos_y -= game->player->dir_y * game->player->speed;
+	}
+	//rotate to the right
+	if (key == KEY_D)
+	{
+		//both camera direction and camera plane must be rotated
+		double oldDirX = game->player->dir_x;
+		game->player->dir_x = game->player->dir_x * cos(-game->player->rotate_speed) - game->player->dir_y * sin(-game->player->rotate_speed);
+		game->player->dir_y = oldDirX * sin(-game->player->rotate_speed) + game->player->dir_y * cos(-game->player->rotate_speed);
+		double oldPlaneX = game->player->plane_x;
+		game->player->plane_x = game->player->plane_x * cos(-game->player->rotate_speed) - game->player->plane_y * sin(-game->player->rotate_speed);
+		game->player->plane_y = oldPlaneX * sin(-game->player->rotate_speed) + game->player->plane_y * cos(-game->player->rotate_speed);
+	}
+	//rotate to the left
+	if (key == KEY_A)
+	{
+		double oldDirX = game->player->dir_x;
+		game->player->dir_x = game->player->dir_x * cos(game->player->rotate_speed) - game->player->dir_y * sin(game->player->rotate_speed);
+		game->player->dir_y = oldDirX * sin(game->player->rotate_speed) + game->player->dir_y * cos(game->player->rotate_speed);
+		double oldPlaneX = game->player->plane_x;
+		game->player->plane_x = game->player->plane_x * cos(game->player->rotate_speed) - game->player->plane_y * sin(game->player->rotate_speed);
+		game->player->plane_y = oldPlaneX * sin(game->player->rotate_speed) + game->player->plane_y * cos(game->player->rotate_speed);
+	}
+	if (key == KEY_ESC)
+		exit(0);
+	return (0);
+}
+
 int		main(void)
 {
 	t_game	game;
@@ -181,6 +218,8 @@ int		main(void)
 		}
 		printf("\n");
 	}
+	printf("game.player->dir_x : %lf\n", game.player->dir_x);
+	printf("game.player->dir_y : %lf\n", game.player->dir_y);
 	mlx_loop_hook(game.mlx_ptr, &main_loop, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);

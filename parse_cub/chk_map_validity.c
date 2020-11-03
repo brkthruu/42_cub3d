@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:36:16 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/03 09:57:21 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/03 16:06:39 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	set_player(t_game *game, char c)
 	{
 		game->player->dir_x = -1;
 		game->player->plane_x = 0.0;
-		game->player->plane_y = 0.66;
+		game->player->plane_y = -0.66;
 	}
 }
 
