@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 12:12:25 by yohan             #+#    #+#             */
-/*   Updated: 2020/11/02 18:06:02 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/04 10:48:04 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,8 @@ void	calc(t_info *info)
 		else
 			color = 0xFFFF00;
 		
-		if (side == 1)
-			color = color / 2;
+		// if (side == 1)
+		// 	color = color / 2;
 
 		verLine(info, x, drawStart, drawEnd, color);
 		
@@ -192,6 +192,7 @@ int	main_loop(t_info *info)
 
 int	key_press(int key, t_info *info)
 {
+	printf("cur pos x, y : %lf %lf\n", info->posX, info->posY);
 	if (key == K_W)
 	{
 		if (!worldMap[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])

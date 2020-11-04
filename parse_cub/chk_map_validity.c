@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:36:16 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/03 16:06:39 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/04 11:58:43 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@ static void	set_player(t_game *game, char c)
 {
 	if (c == 'N')
 	{
-		game->player->dir_y = 1.0;
+		game->player->dir_y = -1.0;
 		game->player->plane_x = 0.66;
 		game->player->plane_y = 0.0;
 	}
 	else if (c == 'S')
 	{
-		game->player->dir_y = -1;
+		game->player->dir_y = 1.0;
 		game->player->plane_x = -0.66;
 		game->player->plane_y = 0.0;
 	}
 	else if (c == 'E')
 	{
-		game->player->dir_x = 1;
+		game->player->dir_x = 1.0;
 		game->player->plane_x = 0.0;
 		game->player->plane_y = 0.66;
 	}
 	else if (c == 'W')
 	{
-		game->player->dir_x = -1;
+		game->player->dir_x = -1.0;
 		game->player->plane_x = 0.0;
 		game->player->plane_y = -0.66;
 	}
@@ -56,15 +56,15 @@ static int	parse_player_info(t_game *game)
 				|| game->cub_info->map[i][j] == 'W'
 				|| game->cub_info->map[i][j] == 'E')
 			{
-				game->player->pos_x = (double)j;
-				game->player->pos_y = (double)i;
+				game->player->posx = (double)j;
+				game->player->posy = (double)i;
 				set_player(game, game->cub_info->map[i][j]);
 			}
 			j++;
 		}
 		i++;
 	}
-	if (game->player->pos_x < 0)
+	if (game->player->posx < 0)
 		return (0);
 	return (1);
 }

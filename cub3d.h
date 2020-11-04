@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/03 11:57:28 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/04 11:49:24 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,27 @@ typedef struct		s_img
 	char			*data;
 }					t_img;
 
+typedef struct		s_ray
+{
+	double			camera_x;
+	double			raydir_x;
+	double			raydir_y;
+	int				map_x;
+	int				map_y;
+	double			s_dist_x;
+	double			s_dist_y;
+	double			d_dist_x;
+	double			d_dist_y;
+	double			perp_wall_dist;
+	int				step_x;
+	int				step_y;
+	int				hit;
+	int				side;
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+}					t_ray;
+
 typedef	struct		s_cub_info
 {
 	char			*file_name;
@@ -69,8 +90,8 @@ typedef	struct		s_cub_info
 
 typedef	struct			s_player
 {
-	double				pos_x;
-	double				pos_y;
+	double				posx;
+	double				posy;
 	double				speed;
 	double				dir_x;
 	double				dir_y;
@@ -101,6 +122,11 @@ int		parse_color(t_game *game, char *line, char opt);
 int		generate_buf_map(t_game *game, char *line, char **buf_map);
 int		copy_map_data(t_game *game, char *buf_map);
 int		chk_map_validity(t_game *game);
+
+int		game_loop(t_game *game);
+void	calc(t_game *game, t_ray *ray);
+void	init_ray(t_game *game, t_ray *ray, int x);
+void	verLine(t_game *game, int x, int y1, int y2, int color);
 
 void	leave(int mod, t_game *game, char *msg);
 
