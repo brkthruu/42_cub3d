@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:07:22 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/04 12:04:40 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/04 17:08:00 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	init_ray(t_game *game, t_ray *ray, int x)
 	ray->d_dist_y = fabs(1 / ray->raydir_y);
 
 	ray->hit = 0;
-
 }
 
 void	calc_side_dist(t_game *game, t_ray *ray)
@@ -51,6 +50,33 @@ void	calc_side_dist(t_game *game, t_ray *ray)
 		ray->s_dist_y = (ray->map_y + 1 - game->player->posy) * ray->d_dist_y;
 	}
 }
+void	calc_line_height(t_game *game, t_ray *ray)
+{
+	while (ray->hit == 0)
+	{
+		if (ray->s_dist_x < ray->s_dist_y)
+		{
+			ray->s_dist_x += ray->d_dist_x;
+			ray->map_x += ray->step_x;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->s_dist_y += ray->d_dist_y;
+			ray->map_y += ray->step_y;
+			ray->side = 1;
+		}
+		if (game->cub_info->map[ray->map_x][ray->map_y] > '0')
+			ray->hit = 1;
+	}
+	if (ray->side == 0)
+		ray->perp_wall_dist = (ray->map_x - game->player->posx + \
+								(1 - ray->step_x) / 2) / ray->raydir_x;
+	else
+		ray->perp_wall_dist = (ray->map_y - game->player->posy + \
+								(1 - ray->step_y) / 2) / ray->raydir_y;
+	ray->line_height = (int)(game->cub_info->scr_height / ray->perp_wall_dist);
+}
 
 void	verLine(t_game *game, int x, int y1, int y2, int color)
 {
@@ -73,41 +99,15 @@ void		calc(t_game *game, t_ray *ray)
 	{
 		init_ray(game, ray, x);
 		calc_side_dist(game, ray);
-		
-		while (ray->hit == 0)
-		{
-			//jump to next map square, OR in x-direction, OR in y-direction
-			if (ray->s_dist_x < ray->s_dist_y)
-			{
-				ray->s_dist_x += ray->d_dist_x;
-				ray->map_x += ray->step_x;
-				ray->side = 0;
-			}
-			else
-			{
-				ray->s_dist_y += ray->d_dist_y;
-				ray->map_y += ray->step_y;
-				ray->side = 1;
-			}
-			//Check if ray has hit a wall
-			if (game->cub_info->map[ray->map_x][ray->map_y] > '0')
-				ray->hit = 1;
-		}
-		if (ray->side == 0)
-			ray->perp_wall_dist = (ray->map_x - game->player->posx + (1 - ray->step_x) / 2) / ray->raydir_x;
-		else
-			ray->perp_wall_dist = (ray->map_y - game->player->posy + (1 - ray->step_y) / 2) / ray->raydir_y;
-
-		//Calculate height of line to draw on screen
-		int lineHeight = (int)(game->cub_info->scr_height / ray->perp_wall_dist);
+		calc_line_height(game, ray);
 
 		//calculate lowest and highest pixel to fill in current stripe
-		int drawStart = -lineHeight / 2 + game->cub_info->scr_height / 2;
-		if(drawStart < 0)
-			drawStart = 0;
-		int drawEnd = lineHeight / 2 + game->cub_info->scr_height / 2;
-		if(drawEnd >= game->cub_info->scr_height)
-			drawEnd = game->cub_info->scr_height - 1;
+		ray->draw_start = -ray->line_height / 2 + game->cub_info->scr_height / 2;
+		if(ray->draw_start < 0)
+			ray->draw_start = 0;
+		ray->draw_end = ray->line_height / 2 + game->cub_info->scr_height / 2;
+		if(ray->draw_end >= game->cub_info->scr_height)
+			ray->draw_end = game->cub_info->scr_height - 1;
 
 		int	color;
 		if (game->cub_info->map[ray->map_x][ray->map_y] == '1')
@@ -124,7 +124,7 @@ void		calc(t_game *game, t_ray *ray)
 		if (ray->side == 1)
 			color = color / 2;
 
-		verLine(game, x, drawStart, drawEnd, color);
+		verLine(game, x, ray->draw_start, ray->draw_end, color);
 		
 		x++;
 	}
