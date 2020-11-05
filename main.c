@@ -28,6 +28,8 @@ int	init_game(t_game *game)
 		leave(1, game, "invalid map\n");
 	game->win_ptr = mlx_new_window(game->mlx_ptr, game->cub_info->scr_width, \
 									game->cub_info->scr_height, "CUB3D");
+	if (!init_image(game))
+		return (0);
 	return (1);
 }
 
@@ -93,6 +95,7 @@ int		main(void)
 		}
 		printf("\n");
 	}
+	printf("img width : %d\n", game.cub_info->textures[0]->img_width);
 	mlx_loop_hook(game.mlx_ptr, &game_loop, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
