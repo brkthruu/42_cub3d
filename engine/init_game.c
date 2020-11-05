@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 19:45:00 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/05 14:20:48 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/05 18:01:27 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int		init_player(t_game *game)
 	game->player->posx = -1.0;
 	game->player->dir_x = 0.0;
 	game->player->dir_y = 0.0;
-	game->player->speed = 0.4;
-	game->player->rotate_speed = 0.4;
+	game->player->speed = 0.1;
+	game->player->rotate_speed = 0.1;
 	return (1);
 }
 

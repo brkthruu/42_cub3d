@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:36:16 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/04 11:58:43 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/05 19:35:01 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static int	parse_player_info(t_game *game)
 				|| game->cub_info->map[i][j] == 'W'
 				|| game->cub_info->map[i][j] == 'E')
 			{
+				printf("parsed start direction: %c\n", game->cub_info->map[i][j]);
 				game->player->posx = (double)j;
 				game->player->posy = (double)i;
 				set_player(game, game->cub_info->map[i][j]);

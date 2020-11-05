@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:07:22 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/04 17:08:00 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/05 19:37:08 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	calc_side_dist(t_game *game, t_ray *ray)
 		ray->s_dist_y = (ray->map_y + 1 - game->player->posy) * ray->d_dist_y;
 	}
 }
+
 void	calc_line_height(t_game *game, t_ray *ray)
 {
 	while (ray->hit == 0)
@@ -66,8 +67,10 @@ void	calc_line_height(t_game *game, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (game->cub_info->map[ray->map_x][ray->map_y] > '0')
+		if (game->cub_info->map[ray->map_y][ray->map_x] > '0')
+		{
 			ray->hit = 1;
+		}
 	}
 	if (ray->side == 0)
 		ray->perp_wall_dist = (ray->map_x - game->player->posx + \
@@ -95,6 +98,7 @@ void		calc(t_game *game, t_ray *ray)
 	int	x;
 
 	x = 0;
+	
 	while (x < game->cub_info->scr_width)
 	{
 		init_ray(game, ray, x);
@@ -110,16 +114,16 @@ void		calc(t_game *game, t_ray *ray)
 			ray->draw_end = game->cub_info->scr_height - 1;
 
 		int	color;
-		if (game->cub_info->map[ray->map_x][ray->map_y] == '1')
+		if (game->cub_info->map[ray->map_y][ray->map_x] == '1')
 			color = 0xFF0000;
-		else if (game->cub_info->map[ray->map_x][ray->map_y] == '2')
+		else if (game->cub_info->map[ray->map_y][ray->map_x] == '2')
 			color = 0x00FF00;
-		else if (game->cub_info->map[ray->map_x][ray->map_y] == '3')
+		else if (game->cub_info->map[ray->map_y][ray->map_x] == '3')
 			color = 0x0000FF;
-		else if (game->cub_info->map[ray->map_x][ray->map_y] == '4')
+		else if (game->cub_info->map[ray->map_y][ray->map_x] == '4')
 			color = 0xFFFFFF;
 		else
-			color = 0xFFFF00;
+		 	color = 0xFFFF00;
 		
 		if (ray->side == 1)
 			color = color / 2;

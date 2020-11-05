@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 19:53:20 by yohlee            #+#    #+#             */
-/*   Updated: 2020/10/30 15:38:31 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/05 17:56:03 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,7 +425,7 @@ int	main(void)
 	info.dirX = -1.0;
 	info.dirY = 0.0;
 	info.planeX = 0.0;
-	info.planeY = 0.66;
+	info.planeY = -0.66;
 
 	for (int i = 0; i < height; i++)
 	{

@@ -36,6 +36,7 @@ int	init_game(t_game *game)
 int	deal_key(int key, t_game *game)
 {
 	printf("current positon : %lf %lf\n", game->player->posx, game->player->posy);
+	printf("current direction : %lf %lf\n", game->player->dir_x, game->player->dir_y);
 	if (key == KEY_W)
 	{
 		if (game->cub_info->map[(int)(game->player->posx + game->player->dir_x * game->player->speed)][(int)(game->player->posy)] == '0')
@@ -51,19 +52,21 @@ int	deal_key(int key, t_game *game)
 		if (game->cub_info->map[(int)(game->player->posx)][(int)(game->player->posy - game->player->dir_y * game->player->speed)] == '0')
 			game->player->posy -= game->player->dir_y * game->player->speed;
 	}
-	//rotate to the right
-	if (key == KEY_D)
+	//rotate to the left
+	if (key == KEY_A)
 	{
 		//both camera direction and camera plane must be rotated
 		double oldDirX = game->player->dir_x;
-		game->player->dir_x = game->player->dir_x * cos(-game->player->rotate_speed) - game->player->dir_y * sin(-game->player->rotate_speed);
+		game->player->dir_x = game->player->dir_x
+			* cos(-game->player->rotate_speed) - game->player->dir_y
+			* sin(-game->player->rotate_speed);
 		game->player->dir_y = oldDirX * sin(-game->player->rotate_speed) + game->player->dir_y * cos(-game->player->rotate_speed);
 		double oldPlaneX = game->player->plane_x;
 		game->player->plane_x = game->player->plane_x * cos(-game->player->rotate_speed) - game->player->plane_y * sin(-game->player->rotate_speed);
 		game->player->plane_y = oldPlaneX * sin(-game->player->rotate_speed) + game->player->plane_y * cos(-game->player->rotate_speed);
 	}
-	//rotate to the left
-	if (key == KEY_A)
+	//rotate to the right
+	if (key == KEY_D)
 	{
 		double oldDirX = game->player->dir_x;
 		game->player->dir_x = game->player->dir_x * cos(game->player->rotate_speed) - game->player->dir_y * sin(game->player->rotate_speed);
@@ -95,7 +98,7 @@ int		main(void)
 		}
 		printf("\n");
 	}
-	printf("img width : %d\n", game.cub_info->textures[0]->img_width);
+	printf("initial direction : %lf %lf\n", game.player->dir_x, game.player->dir_y);
 	mlx_loop_hook(game.mlx_ptr, &game_loop, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
