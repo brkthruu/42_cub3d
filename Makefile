@@ -6,7 +6,7 @@
 #    By: hjung <hjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/22 14:00:47 by hjung             #+#    #+#              #
-#    Updated: 2020/11/04 13:44:44 by hjung            ###   ########.fr        #
+#    Updated: 2020/11/05 21:34:25 by hjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC	=	main.c \
 		parse_cub/chk_map_validity.c\
 		engine/init_game.c\
 		engine/game_loop.c\
+		engine/texture.c\
 		utils/is_whitespace.c 
 		
 OBJ = $(SRC:.c=.o)

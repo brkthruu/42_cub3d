@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:07:22 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/05 19:37:08 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/05 21:35:21 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,23 +113,24 @@ void		calc(t_game *game, t_ray *ray)
 		if(ray->draw_end >= game->cub_info->scr_height)
 			ray->draw_end = game->cub_info->scr_height - 1;
 
-		int	color;
-		if (game->cub_info->map[ray->map_y][ray->map_x] == '1')
-			color = 0xFF0000;
-		else if (game->cub_info->map[ray->map_y][ray->map_x] == '2')
-			color = 0x00FF00;
-		else if (game->cub_info->map[ray->map_y][ray->map_x] == '3')
-			color = 0x0000FF;
-		else if (game->cub_info->map[ray->map_y][ray->map_x] == '4')
-			color = 0xFFFFFF;
-		else
-		 	color = 0xFFFF00;
+		// int	color;
+		// if (game->cub_info->map[ray->map_y][ray->map_x] == '1')
+		// 	color = 0xFF0000;
+		// else if (game->cub_info->map[ray->map_y][ray->map_x] == '2')
+		// 	color = 0x00FF00;
+		// else if (game->cub_info->map[ray->map_y][ray->map_x] == '3')
+		// 	color = 0x0000FF;
+		// else if (game->cub_info->map[ray->map_y][ray->map_x] == '4')
+		// 	color = 0xFFFFFF;
+		// else
+		//  	color = 0xFFFF00;
 		
-		if (ray->side == 1)
-			color = color / 2;
+		// if (ray->side == 1)
+		// 	color = color / 2;
 
-		verLine(game, x, ray->draw_start, ray->draw_end, color);
+		// verLine(game, x, ray->draw_start, ray->draw_end, color);
 		
+		adjust_texture(game, ray, x);
 		x++;
 	}
 }
@@ -137,6 +138,8 @@ void		calc(t_game *game, t_ray *ray)
 int		game_loop(t_game *game)
 {
 	t_ray	ray;
+
 	calc(game, &ray);
+	draw(game);
 	return (0);
 }
