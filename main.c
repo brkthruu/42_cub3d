@@ -98,8 +98,10 @@ int		main(void)
 		}
 		printf("\n");
 	}
+	printf("SCREEN SIZE : %d %d\n", game.cub_info->scr_width, game.cub_info->scr_height);
 	printf("initial direction : %lf %lf\n", game.player->dir_x, game.player->dir_y);
-	mlx_put_image_to_window(game.mlx_ptr, game.win_ptr, game.cub_info->textures[0]->img_ptr, 150, 150);
+	printf("color value of xpm[0][2] : %d\n", game.cub_info->textures[1]->data[2]);
+	printf("xpm img width and height: %d %d\n", game.cub_info->textures[1]->img_width, game.cub_info->textures[1]->img_height);
 	mlx_loop_hook(game.mlx_ptr, &game_loop, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
