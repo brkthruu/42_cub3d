@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:31:12 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/03 10:53:19 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/06 15:34:30 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	set_texture(t_game *game, char *line, int tex_index)
 		return (0);
 	}
 	game->cub_info->textures[tex_index]->data =
-		mlx_get_data_addr(game->cub_info->textures[tex_index]->img_ptr,
+		(int *)mlx_get_data_addr(game->cub_info->textures[tex_index]->img_ptr,
 		&game->cub_info->textures[tex_index]->bpp,
 		&game->cub_info->textures[tex_index]->size_l,
 		&game->cub_info->textures[tex_index]->endian);

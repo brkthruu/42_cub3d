@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/05 21:35:18 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/06 15:32:58 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct		s_img
 	int				bpp;
 	int				endian;
 	void			*img_ptr;
-	char			*data;
+	int				*data;
 }					t_img;
 
 typedef struct		s_ray

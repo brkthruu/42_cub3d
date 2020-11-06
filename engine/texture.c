@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 21:04:33 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/06 12:38:41 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/06 15:47:15 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw(t_game *game)
 
 void adjust_texture(t_game *game, t_ray *ray, int x)
 {
-    int texNum = 3;
+    int texNum = 0;
 
     // calculate value of wallX
     double wallX;

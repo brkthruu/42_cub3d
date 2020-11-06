@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:07:22 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/06 12:41:22 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/06 15:49:00 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	calc_line_height(t_game *game, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (game->cub_info->map[ray->map_y][ray->map_x] > '0')
+		if (game->cub_info->map[ray->map_y][ray->map_x] == '1')
 		{
 			ray->hit = 1;
 		}
@@ -78,7 +78,7 @@ void	calc_line_height(t_game *game, t_ray *ray)
 	else
 		ray->perp_wall_dist = (ray->map_y - game->player->posy + \
 								(1 - ray->step_y) / 2) / ray->raydir_y;
-	ray->line_height = (int)(game->cub_info->scr_height / ray->perp_wall_dist);
+	ray->line_height = (int)(4 * game->cub_info->scr_height / ray->perp_wall_dist);
 }
 
 void	verLine(t_game *game, int x, int y1, int y2, int color)
