@@ -98,10 +98,8 @@ int		main(void)
 		}
 		printf("\n");
 	}
-	printf("xpm img[0] width and height: %d %d\n", game.cub_info->textures[0]->img_width, game.cub_info->textures[0]->img_height);
-	printf("xpm img[0] width and height: %d %d\n", game.cub_info->textures[1]->img_width, game.cub_info->textures[1]->img_height);
-	printf("xpm img[0] width and height: %d %d\n", game.cub_info->textures[2]->img_width, game.cub_info->textures[2]->img_height);
-	printf("xpm img[0] width and height: %d %d\n", game.cub_info->textures[3]->img_width, game.cub_info->textures[3]->img_height);
+	
+
 	mlx_loop_hook(game.mlx_ptr, &game_loop, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);

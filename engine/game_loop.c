@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:07:22 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/06 15:49:00 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/06 16:19:50 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	calc_line_height(t_game *game, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (game->cub_info->map[ray->map_y][ray->map_x] == '1')
+		if (game->cub_info->map[ray->map_y][ray->map_x] > '0')
 		{
 			ray->hit = 1;
 		}
@@ -141,5 +141,9 @@ int		game_loop(t_game *game)
 
 	calc(game, &ray);
 	draw(game);
+	mlx_put_image_to_window (game->mlx_ptr, game->win_ptr, game->cub_info->textures[0]->img_ptr, 0, 0);
+	mlx_put_image_to_window (game->mlx_ptr, game->win_ptr, game->cub_info->textures[1]->img_ptr, 500, 0);
+	mlx_put_image_to_window (game->mlx_ptr, game->win_ptr, game->cub_info->textures[2]->img_ptr, 0, 400);
+	mlx_put_image_to_window (game->mlx_ptr, game->win_ptr, game->cub_info->textures[3]->img_ptr, 400, 400);
 	return (0);
 }
