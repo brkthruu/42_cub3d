@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/08 17:17:29 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/08 19:08:03 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	init_ray(t_game *game, t_ray *ray, int x);
 void	verLine(t_game *game, int x, int y1, int y2, int color);
 void	adjust_texture(t_game *game, t_ray *ray, int x);
 void	floor_ceiling(t_game *game);
-void	draw(t_game *game);
+// void	draw(t_game *game);
 
 void	leave(int mod, t_game *game, char *msg);
 
