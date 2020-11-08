@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/08 21:11:23 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/08 21:28:38 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void				init_ray(t_game *game, t_ray *ray, int x);
 void				adjust_texture(t_game *game, t_ray *ray, int x);
 void				coloring_floor_ceiling(t_game *game);
 
+int					key_press(int key, t_game *game);
+int					key_release(int key, t_game *game);
 void				leave(int mod, t_game *game, char *msg);
 
 int					is_whitespace(int c);
