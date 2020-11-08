@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:07:22 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/06 16:19:50 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/08 15:49:28 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,64 @@ void		calc(t_game *game, t_ray *ray)
 
 	x = 0;
 	
+	int height;
+	int width;
+	height = game->cub_info->scr_height;
+	width = game->cub_info->scr_width;
+
+	//FLOOR CASTING
+	for(int y = 0; y < height; y++)
+	{
+		// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
+		float rayDirX0 = game->player->dir_x - game->player->plane_x;
+		float rayDirY0 = game->player->dir_y - game->player->plane_y;
+		float rayDirX1 = game->player->dir_x + game->player->plane_x;
+		float rayDirY1 = game->player->dir_y + game->player->plane_y;
+
+		// Current y position compared to the center of the screen (the horizon)
+		int p = y - height / 2;
+
+		// Vertical position of the camera.
+		float posZ = 0.5 * height;
+
+		// Horizontal distance from the camera to the floor for the current row.
+		// 0.5 is the z position exactly in the middle between floor and ceiling.
+		float rowDistance = posZ / p;
+
+		// calculate the real world step vector we have to add for each x (parallel to camera plane)
+		// adding step by step avoids multiplications with a weight in the inner loop
+		float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / width;
+		float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / width;
+
+		// real world coordinates of the leftmost column. This will be updated as we step to the right.
+		float floorX = game->player->posx + rowDistance * rayDirX0;
+		float floorY = game->player->posy + rowDistance * rayDirY0;
+
+		for(int x = 0; x < width; ++x)
+		{
+			// the cell coord is simply got from the integer parts of floorX and floorY
+			int cellX = (int)(floorX);
+			int cellY = (int)(floorY);
+
+			floorX += floorStepX;
+			floorY += floorStepY;
+
+			int color;
+
+			// floor
+			color = game->cub_info->color_floor;
+			color = (color >> 1) & 8355711; // make a bit darker
+
+			game->img->data[y * game->cub_info->scr_width + x] = color;
+
+			//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
+			color = game->cub_info->color_ceil;
+			color = (color >> 1) & 8355711; // make a bit darker
+
+			game->img->data[(height - y - 1) * width + x] = color;
+		}
+	}
+	
 	while (x < game->cub_info->scr_width)
 	{
 		init_ray(game, ray, x);
@@ -141,9 +199,5 @@ int		game_loop(t_game *game)
 
 	calc(game, &ray);
 	draw(game);
-	mlx_put_image_to_window (game->mlx_ptr, game->win_ptr, game->cub_info->textures[0]->img_ptr, 0, 0);
-	mlx_put_image_to_window (game->mlx_ptr, game->win_ptr, game->cub_info->textures[1]->img_ptr, 500, 0);
-	mlx_put_image_to_window (game->mlx_ptr, game->win_ptr, game->cub_info->textures[2]->img_ptr, 0, 400);
-	mlx_put_image_to_window (game->mlx_ptr, game->win_ptr, game->cub_info->textures[3]->img_ptr, 400, 400);
 	return (0);
 }
