@@ -36,6 +36,7 @@ int	init_game(t_game *game)
 int	deal_key(int key, t_game *game)
 {
 	printf("current positon : %d %d\n", (int)game->player->posx, (int)game->player->posy);
+	printf("CUR DIRECTION : %lf %lf\n", game->player->dir_x, game->player->dir_y);
 	if (key == KEY_W)
 	{
 		if (game->cub_info->map[(int)(game->player->posy)][(int)(game->player->posx + game->player->dir_x * game->player->speed)] == '0')
