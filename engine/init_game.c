@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 19:45:00 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/08 15:08:18 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/08 21:05:45 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int		init_image(t_game *game)
 	if (!(game->img->img_ptr = mlx_new_image(game->mlx_ptr,
 		game->cub_info->scr_width, game->cub_info->scr_height)))
 		return (0);
-	game->img->data = (int *)mlx_get_data_addr(game->img->img_ptr, &game->img->bpp,
-				&game->img->size_l, &game->img->endian);
+	game->img->data = (int *)mlx_get_data_addr(game->img->img_ptr,
+				&game->img->bpp, &game->img->size_l, &game->img->endian);
 	return (1);
 }
 

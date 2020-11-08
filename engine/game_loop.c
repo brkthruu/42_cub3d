@@ -6,28 +6,25 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:07:22 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/08 19:07:49 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/08 21:04:34 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	init_ray(t_game *game, t_ray *ray, int x)
+void		init_ray(t_game *game, t_ray *ray, int x)
 {
 	ray->camera_x = 2 * x / (double)game->cub_info->scr_width - 1;
 	ray->raydir_x = game->player->dir_x + game->player->plane_x * ray->camera_x;
 	ray->raydir_y = game->player->dir_y + game->player->plane_y * ray->camera_x;
-
 	ray->map_x = (int)game->player->posx;
 	ray->map_y = (int)game->player->posy;
-
 	ray->d_dist_x = fabs(1 / ray->raydir_x);
 	ray->d_dist_y = fabs(1 / ray->raydir_y);
-
 	ray->hit = 0;
 }
 
-void	calc_side_dist(t_game *game, t_ray *ray)
+static void	calc_side_dist(t_game *game, t_ray *ray)
 {
 	if (ray->raydir_x < 0)
 	{
@@ -51,7 +48,7 @@ void	calc_side_dist(t_game *game, t_ray *ray)
 	}
 }
 
-void	calc_line_height(t_game *game, t_ray *ray)
+static void	calc_line_height(t_game *game, t_ray *ray)
 {
 	while (ray->hit == 0)
 	{
@@ -68,9 +65,7 @@ void	calc_line_height(t_game *game, t_ray *ray)
 			ray->side = 1;
 		}
 		if (game->cub_info->map[ray->map_y][ray->map_x] > '0')
-		{
 			ray->hit = 1;
-		}
 	}
 	if (ray->side == 0)
 		ray->perp_wall_dist = (ray->map_x - game->player->posx + \
@@ -83,33 +78,28 @@ void	calc_line_height(t_game *game, t_ray *ray)
 
 void		calc(t_game *game, t_ray *ray)
 {
-	int	x;
+	int		x;
 
 	x = 0;
-	
-	//FLOOR CASTING
-	floor_ceiling(game);
-	
+	coloring_floor_ceiling(game);
 	while (x < game->cub_info->scr_width)
 	{
 		init_ray(game, ray, x);
 		calc_side_dist(game, ray);
 		calc_line_height(game, ray);
-
-		//calculate lowest and highest pixel to fill in current stripe
-		ray->draw_start = -ray->line_height / 2 + game->cub_info->scr_height / 2;
-		if(ray->draw_start < 0)
+		ray->draw_start = -ray->line_height / 2
+							+ game->cub_info->scr_height / 2;
+		if (ray->draw_start < 0)
 			ray->draw_start = 0;
 		ray->draw_end = ray->line_height / 2 + game->cub_info->scr_height / 2;
-		if(ray->draw_end >= game->cub_info->scr_height)
+		if (ray->draw_end >= game->cub_info->scr_height)
 			ray->draw_end = game->cub_info->scr_height - 1;
-		
 		adjust_texture(game, ray, x);
 		x++;
 	}
 }
 
-int		game_loop(t_game *game)
+int			game_loop(t_game *game)
 {
 	t_ray	ray;
 
