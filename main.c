@@ -35,21 +35,20 @@ int	init_game(t_game *game)
 
 int	deal_key(int key, t_game *game)
 {
-	printf("current positon : %lf %lf\n", game->player->posx, game->player->posy);
-	printf("current direction : %lf %lf\n", game->player->dir_x, game->player->dir_y);
+	printf("current positon : %d %d\n", (int)game->player->posx, (int)game->player->posy);
 	if (key == KEY_W)
 	{
-		if (game->cub_info->map[(int)(game->player->posx + game->player->dir_x * game->player->speed)][(int)(game->player->posy)] == '0')
+		if (game->cub_info->map[(int)(game->player->posy)][(int)(game->player->posx + game->player->dir_x * game->player->speed)] == '0')
 			game->player->posx += game->player->dir_x * game->player->speed;
-		if (game->cub_info->map[(int)(game->player->posx)][(int)(game->player->posy + game->player->dir_y * game->player->speed)] == '0')
+		if (game->cub_info->map[(int)(game->player->posy + game->player->dir_y * game->player->speed)][(int)(game->player->posx)] == '0')
 			game->player->posy += game->player->dir_y * game->player->speed;
 	}
 	//move backwards if no wall behind you
 	if (key == KEY_S)
 	{
-		if (game->cub_info->map[(int)(game->player->posx - game->player->dir_x * game->player->speed)][(int)(game->player->posy)] == '0')
+		if (game->cub_info->map[(int)(game->player->posy)][(int)(game->player->posx - game->player->dir_x * game->player->speed)] == '0')
 			game->player->posx -= game->player->dir_x * game->player->speed;
-		if (game->cub_info->map[(int)(game->player->posx)][(int)(game->player->posy - game->player->dir_y * game->player->speed)] == '0')
+		if (game->cub_info->map[(int)(game->player->posy - game->player->dir_y * game->player->speed)][(int)(game->player->posx)] == '0')
 			game->player->posy -= game->player->dir_y * game->player->speed;
 	}
 	//rotate to the left
