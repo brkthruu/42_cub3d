@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/09 13:22:33 by hjung             #+#    #+#             */
+/*   Updated: 2020/11/09 14:34:31 by hjung            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <string.h>
 #include "../mlx/mlx.h"
 #include "./cub3d.h"
@@ -18,14 +30,14 @@ void	leave(int mod, t_game *game, char *msg)
 	exit(0);
 }
 
-int	init_game(t_game *game)
+int	init_game(t_game *game, char *argv)
 {
 	game->mlx_ptr = mlx_init();
 	if (!init_cub_info(game) || !init_textures(game, 4)
 		|| !init_player(game))
 		return (0);
-	if (!parse_config(game))
-		leave(1, game, "invalid map\n");
+	if (!parse_config(game, argv))
+		leave(1, game, "Error\nInvalid map");
 	game->win_ptr = mlx_new_window(game->mlx_ptr, game->cub_info->scr_width, \
 									game->cub_info->scr_height, "CUB3D");
 	if (!init_image(game))
@@ -33,29 +45,18 @@ int	init_game(t_game *game)
 	return (1);
 }
 
-int		main(void)
+int		main(int argc, char **argv)
 {
 	t_game	game;
-	int		i;
-	int		j;
 
-	if (!init_game(&game))
+	if (argc < 2)
+		leave(1, &game, "ERROR\nNo map file");
+	if (!init_game(&game, argv[1]))
 		return (0);
-	i = 0;
-	j = 0;
-	for (i = 0; i < game.cub_info->rows; i++)
-	{
-		for (j = 0; j < game.cub_info->cols; j++)
-		{
-			printf("%c", game.cub_info->map[i][j]);
-		}
-		printf("\n");
-	}
-
 	mlx_loop_hook(game.mlx_ptr, &game_loop, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &game);
-	mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_RELEASE, 0, &key_release, &game);
+	mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
 	mlx_loop(game.mlx_ptr);
 
 	return (0);	

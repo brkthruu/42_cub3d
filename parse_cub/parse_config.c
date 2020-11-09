@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:31:12 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/06 15:34:30 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/09 13:58:35 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ static int	set_texture(t_game *game, char *line, int tex_index)
 		mlx_xpm_file_to_image(game->mlx_ptr, (char *)line,
 		&game->cub_info->textures[tex_index]->img_width,
 		&game->cub_info->textures[tex_index]->img_height)))
-	{
-		printf("return zero\n");
 		return (0);
-	}
 	game->cub_info->textures[tex_index]->data =
 		(int *)mlx_get_data_addr(game->cub_info->textures[tex_index]->img_ptr,
 		&game->cub_info->textures[tex_index]->bpp,
@@ -69,7 +66,7 @@ static int	classify(t_game *game, char *line, char **buf_map)
 	return (1);
 }
 
-int			parse_config(t_game *game)
+int			parse_config(t_game *game, char *argv)
 {
 	int		ret;
 	int		fd;
@@ -78,7 +75,7 @@ int			parse_config(t_game *game)
 
 	buf_map = malloc(sizeof(char) * 2);
 	buf_map = "";
-	fd = open("map/map.cub", O_RDONLY);
+	fd = open(argv, O_RDONLY);
 	while (fd >= 0 && (ret = (get_next_line(fd, &line))) != -1)
 	{
 		if (classify(game, line, &buf_map) == 0)
