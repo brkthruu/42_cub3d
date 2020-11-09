@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/09 21:14:57 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/09 22:08:55 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define KEY_A					0
 # define KEY_S					1
 # define KEY_D					2
+# define KEY_LEFT 				123
+# define KEY_RIGHT				124
 
 typedef struct		s_img
 {
@@ -131,6 +133,12 @@ void				coloring_floor_ceiling(t_game *game);
 
 int					key_press(int key, t_game *game);
 int					key_release(int key, t_game *game);
+void    			move_forward(t_game *game);
+void			    move_backward(t_game *game);
+void			    move_left(t_game *game);
+void			    move_right(t_game *game);
+void				rotate_left(t_game *game);
+void				rotate_right(t_game *game);
 void				leave(int mod, t_game *game, char *msg);
 
 int					is_whitespace(int c);

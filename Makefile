@@ -6,7 +6,7 @@
 #    By: hjung <hjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/22 14:00:47 by hjung             #+#    #+#              #
-#    Updated: 2020/11/09 17:55:02 by hjung            ###   ########.fr        #
+#    Updated: 2020/11/09 22:00:42 by hjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC	=	main.c \
 		engine/game_loop.c\
 		engine/texture.c\
 		engine/deal_key.c\
+		engine/player_move.c\
 		utils/is_whitespace.c\
 		utils/capture_bmp.c
 		
