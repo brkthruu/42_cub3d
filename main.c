@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 13:22:33 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/09 14:34:31 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/09 19:15:52 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ int		main(int argc, char **argv)
 		leave(1, &game, "ERROR\nNo map file");
 	if (!init_game(&game, argv[1]))
 		return (0);
+	if (argc == 3)
+	{
+		if (ft_strncmp(argv[2], "--save", ft_strlen(argv[2])) == 0)
+			game.save = 1;
+	}
 	mlx_loop_hook(game.mlx_ptr, &game_loop, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_RELEASE, 0, &key_release, &game);

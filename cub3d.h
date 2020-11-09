@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/09 14:34:40 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/09 21:14:57 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct		s_game
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
+	int				save;
 	t_img			*img;
 	t_cub_info		*cub_info;
 	t_player		*player;
@@ -133,5 +134,10 @@ int					key_release(int key, t_game *game);
 void				leave(int mod, t_game *game, char *msg);
 
 int					is_whitespace(int c);
+int					capture_bmp(t_game *game);
+int					save_header(t_game *game, int fd, int f_size);
+int					save_data(t_game *game, int fd, int pad);
+int					get_color(t_game *game, int x, int y);
+void				write_4bytes(unsigned char *bytes, int value);
 
 #endif
