@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:44:00 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/09 21:16:23 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/09 21:22:58 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int		capture_bmp(t_game *game)
 	pad = (4 - (game->cub_info->scr_width * 3) % 4) % 4;
 	f_size = 54 + (((3 * game->cub_info->scr_width) + pad))
 								* game->cub_info->scr_height;
-	if ((fd = open("screenshot.bmp", O_WRONLY | O_CREAT |
-		O_TRUNC | O_APPEND)) < 0)
+	if ((fd = open("screenshot.bmp", O_WRONLY | O_CREAT, 0777)) < 0)
 		return (1);
 	if (save_header(game, fd, f_size))
 		return (1);
