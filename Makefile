@@ -6,7 +6,7 @@
 #    By: hjung <hjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/22 14:00:47 by hjung             #+#    #+#              #
-#    Updated: 2020/11/09 22:00:42 by hjung            ###   ########.fr        #
+#    Updated: 2020/11/10 17:52:44 by hjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC	=	main.c \
 		parse_cub/parse_color.c \
 		parse_cub/parse_map.c\
 		parse_cub/chk_map_validity.c\
+		parse_cub/parse_sprite.c\
 		engine/init_game.c\
 		engine/game_loop.c\
 		engine/texture.c\

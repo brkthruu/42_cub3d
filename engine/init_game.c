@@ -6,11 +6,18 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 19:45:00 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/09 21:34:21 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/10 18:17:48 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+int		init_sprite(t_game *game)
+{
+	printf("num_sprite in init_sprite : %d\n", game->num_sprite);
+	if (!(game->sprites = malloc(sizeof(t_sprite) * game->num_sprite)))
+		return (0);
+	return (1);
+}
 
 int		init_image(t_game *game)
 {

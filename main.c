@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 13:22:33 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/09 19:15:52 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/10 18:15:39 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,15 @@ int	init_game(t_game *game, char *argv)
 	if (!init_cub_info(game) || !init_textures(game, 4)
 		|| !init_player(game))
 		return (0);
+	game->num_sprite = 0;
 	if (!parse_config(game, argv))
 		leave(1, game, "Error\nInvalid map");
+	printf("number of sprites : %d\n", game->num_sprite);
 	game->win_ptr = mlx_new_window(game->mlx_ptr, game->cub_info->scr_width, \
 									game->cub_info->scr_height, "CUB3D");
 	if (!init_image(game))
+		return (0);
+	if (!init_sprite(game))	
 		return (0);
 	return (1);
 }

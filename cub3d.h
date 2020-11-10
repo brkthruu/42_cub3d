@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/09 22:08:55 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/10 18:15:18 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 # define KEY_D					2
 # define KEY_LEFT 				123
 # define KEY_RIGHT				124
+
+typedef struct		s_sprite
+{
+	double			x;
+	double			y;
+}					t_sprite;
 
 typedef struct		s_img
 {
@@ -110,6 +116,8 @@ typedef struct		s_game
 	t_img			*img;
 	t_cub_info		*cub_info;
 	t_player		*player;
+	t_sprite		*sprites;
+	int				num_sprite;
 }					t_game;
 
 int					init_game(t_game *game, char *argv);
@@ -117,6 +125,7 @@ int					init_cub_info(t_game *game);
 int					init_textures(t_game *game, int nbr_textures);
 int					init_player(t_game *game);
 int					init_image(t_game *game);
+int					init_sprite(t_game *game);
 
 int					parse_config(t_game *game, char *argv);
 int					parse_color(t_game *game, char *line, char opt);
@@ -124,6 +133,7 @@ int					parse_color(t_game *game, char *line, char opt);
 int					generate_buf_map(t_game *game, char *line, char **buf_map);
 int					copy_map_data(t_game *game, char *buf_map);
 int					chk_map_validity(t_game *game);
+int					sprite_cnt(t_game *game);
 
 int					game_loop(t_game *game);
 void				calc(t_game *game, t_ray *ray);
