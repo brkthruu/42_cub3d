@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 13:22:33 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/10 18:15:39 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/10 21:09:34 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	leave(int mod, t_game *game, char *msg)
 int	init_game(t_game *game, char *argv)
 {
 	game->mlx_ptr = mlx_init();
-	if (!init_cub_info(game) || !init_textures(game, 4)
+	if (!init_cub_info(game) || !init_textures(game, 5)
 		|| !init_player(game))
 		return (0);
 	game->num_sprite = 0;
@@ -62,6 +62,7 @@ int		main(int argc, char **argv)
 		if (ft_strncmp(argv[2], "--save", ft_strlen(argv[2])) == 0)
 			game.save = 1;
 	}
+	
 	mlx_loop_hook(game.mlx_ptr, &game_loop, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_RELEASE, 0, &key_release, &game);

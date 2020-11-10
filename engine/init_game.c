@@ -6,16 +6,41 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 19:45:00 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/10 18:17:48 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/10 20:58:05 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
 int		init_sprite(t_game *game)
 {
-	printf("num_sprite in init_sprite : %d\n", game->num_sprite);
+	int		i;
+	int		j;
+	int		n;
+
+	n = 0;
 	if (!(game->sprites = malloc(sizeof(t_sprite) * game->num_sprite)))
 		return (0);
+	i = 0;
+	while (i < game->cub_info->rows)
+	{
+		j = 0;
+		while (j < game->cub_info->cols)
+		{
+			if (game->cub_info->map[i][j] == '2')
+			{
+				game->sprites[n].x = (double)j;
+				game->sprites[n].y = (double)i;
+				n++;
+			}
+			j++;
+		}
+		i++;
+	}
+	for (i = 0; i < 4; i++)
+	{
+		printf("sprite %d location : %.2lf %.2lf\n", i, game->sprites[i].x, game->sprites[i].y);
+	}
 	return (1);
 }
 

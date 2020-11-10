@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/10 18:15:18 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/10 20:37:40 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,35 @@ typedef struct		s_sprite
 {
 	double			x;
 	double			y;
+	double			distance;
 }					t_sprite;
+
+typedef struct		s_draw_sprite
+{
+	double			sprite_x;
+	double			sprite_y;
+	double			inv_det;
+	double			transform_x;
+	double			transform_y;
+	int				sprite_screen_x;
+	int				u_div;
+	int				v_div;
+	int				v_move;
+	int				v_move_screen;
+	int				sprite_height;
+	int				draw_start_y;
+	int				draw_end_y;
+	int				sprite_width;
+	int				draw_start_x;
+	int				draw_end_x;
+	int				stripe;
+	int				y;
+	int				d;
+	int				tex_x;
+	int				tex_y;
+	int				color;
+	int				totcolor;
+}					t_draw_sprite;
 
 typedef struct		s_img
 {
@@ -69,6 +97,7 @@ typedef struct		s_ray
 	int				line_height;
 	int				draw_start;
 	int				draw_end;
+	double			*z_buffer;
 }					t_ray;
 
 typedef	struct		s_cub_info
@@ -150,6 +179,8 @@ void			    move_right(t_game *game);
 void				rotate_left(t_game *game);
 void				rotate_right(t_game *game);
 void				leave(int mod, t_game *game, char *msg);
+
+void				sort_sprites(t_game *game, int num_sprite);
 
 int					is_whitespace(int c);
 int					capture_bmp(t_game *game);
