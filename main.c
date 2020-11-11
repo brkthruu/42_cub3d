@@ -6,15 +6,14 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 13:22:33 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/11 19:28:10 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/11 20:06:48 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
-#include "../mlx/mlx.h"
 #include "./cub3d.h"
 
-int 	close_window(t_game *game)
+int		close_window(t_game *game)
 {
 	exit(0);
 	return (0);
@@ -30,7 +29,7 @@ void	leave(int mod, t_game *game, char *msg)
 	exit(0);
 }
 
-int	init_game(t_game *game, char *argv)
+int		init_game(t_game *game, char *argv)
 {
 	game->mlx_ptr = mlx_init();
 	if (!init_cub_info(game) || !init_textures(game, 5)
@@ -39,12 +38,11 @@ int	init_game(t_game *game, char *argv)
 	game->num_sprite = 0;
 	if (!parse_config(game, argv))
 		leave(1, game, "Error\nInvalid map");
-	printf("number of sprites : %d\n", game->num_sprite);
 	game->win_ptr = mlx_new_window(game->mlx_ptr, game->cub_info->scr_width, \
 									game->cub_info->scr_height, "CUB3D");
 	if (!init_image(game))
 		return (0);
-	if (!init_sprite(game))	
+	if (!init_sprite(game))
 		return (0);
 	return (1);
 }
@@ -62,11 +60,11 @@ int		main(int argc, char **argv)
 		if (ft_strncmp(argv[2], "--save", ft_strlen(argv[2])) == 0)
 			game.save = 1;
 	}
-	
+
 	mlx_loop_hook(game.mlx_ptr, &game_loop, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
 	mlx_loop(game.mlx_ptr);
 
-	return (0);	
+	return (0);
 }

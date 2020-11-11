@@ -6,7 +6,7 @@
 #    By: hjung <hjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/22 14:00:47 by hjung             #+#    #+#              #
-#    Updated: 2020/11/11 18:03:38 by hjung            ###   ########.fr        #
+#    Updated: 2020/11/11 20:50:37 by hjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ clean :
 
 fclean: clean
 	$(MAKE) fclean -C ./libft
+	rm -f screenshot.bmp
 	rm -f $(NAME)
 
 re : fclean all

@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 21:21:50 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/11 19:27:21 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/11 20:11:04 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	rotate_right(t_game *game)
 			+ game->player->plane_y * cos(game->player->rotate_speed);
 }
 
-int	key_press(int key, t_game *game)
+int		key_press(int key, t_game *game)
 {
 	if (key == KEY_W)
 		move_forward(game);

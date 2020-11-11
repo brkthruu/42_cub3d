@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 19:45:00 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/10 20:58:05 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/11 20:02:09 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ int		init_sprite(t_game *game)
 			j++;
 		}
 		i++;
-	}
-	for (i = 0; i < 4; i++)
-	{
-		printf("sprite %d location : %.2lf %.2lf\n", i, game->sprites[i].x, game->sprites[i].y);
 	}
 	return (1);
 }
