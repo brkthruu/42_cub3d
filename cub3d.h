@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/10 20:37:40 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/11 17:16:18 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void				rotate_left(t_game *game);
 void				rotate_right(t_game *game);
 void				leave(int mod, t_game *game, char *msg);
 
+void				sprite_casting(t_game *game, t_ray *ray);
 void				sort_sprites(t_game *game, int num_sprite);
 
 int					is_whitespace(int c);
