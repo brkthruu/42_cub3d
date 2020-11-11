@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 13:22:33 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/10 21:09:34 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/11 19:28:10 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int		main(int argc, char **argv)
 	
 	mlx_loop_hook(game.mlx_ptr, &game_loop, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &game);
-	mlx_hook(game.win_ptr, X_EVENT_KEY_RELEASE, 0, &key_release, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
 	mlx_loop(game.mlx_ptr);
 

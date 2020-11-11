@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 20:28:54 by yohlee            #+#    #+#             */
-/*   Updated: 2020/11/10 18:43:59 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/11 19:41:43 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,6 +323,7 @@ void	calc(t_info *info)
 		if(drawStart < 0) drawStart = 0;
 		int drawEnd = lineHeight / 2 + height / 2;
 		if(drawEnd >= height) drawEnd = height - 1;
+		
 		//texturing calculations
 		int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
 		//calculate value of wallX

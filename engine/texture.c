@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 21:04:33 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/08 20:59:07 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/11 19:52:17 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,7 @@ void			adjust_texture(t_game *game, t_ray *ray, int x)
 	tximg.tex_x = x_coord_on_tex(game, ray, &tximg);
 	tximg.step = 1.0 * game->cub_info->textures[tximg.tex_index]->img_height
 					/ ray->line_height;
-	tximg.tex_pos = (ray->draw_start - game->cub_info
-					->textures[tximg.tex_index]->img_height / 2
+	tximg.tex_pos = (ray->draw_start - game->cub_info->scr_height / 2
 					+ ray->line_height / 2) * tximg.step;
 	color_to_buf(game, ray, &tximg, x);
 }

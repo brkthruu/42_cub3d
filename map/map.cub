@@ -1,6 +1,6 @@
 R 800 600
 NO ./textures/noxpm.xpm
-SO ./textures/soxpm.xpm
+SO ./textures/paul.xpm
 WE ./textures/wexpm.xpm
 EA ./textures/eaxpm.xpm
 S ./textures/pillar.xpm

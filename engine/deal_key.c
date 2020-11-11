@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 21:21:50 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/09 22:08:15 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/11 19:27:21 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,7 @@ int	key_press(int key, t_game *game)
 		rotate_left(game);
 	if (key == KEY_RIGHT)
 		rotate_right(game);
-	return (0);
-}
-
-int	key_release(int key, t_game *game)
-{
 	if (key == KEY_ESC)
 		exit(0);
-	// else if (key == KEY_W)
-	// 	info->key_w = 0;
-	// else if (key == KEY_A)
-	// 	info->key_a = 0;
-	// else if (key == KEY_S)
-	// 	info->key_s = 0;
-	// else if (key == KEY_D)
-	// 	info->key_d = 0;
 	return (0);
 }
