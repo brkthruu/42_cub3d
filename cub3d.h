@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/12 15:47:10 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 17:52:16 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ typedef struct		s_game
 	t_player		*player;
 	t_sprite		*sprites;
 	int				num_sprite;
+	char			*buf_map;
 }					t_game;
 
 int					init_game(t_game *game, char *argv);
@@ -159,7 +160,7 @@ int					init_sprite(t_game *game);
 int					parse_config(t_game *game, char *argv);
 int					parse_color(t_game *game, char *line, char opt);
 
-int					generate_buf_map(t_game *game, char *line, char **buf_map);
+int					generate_buf_map(t_game *game, char *line);
 int					copy_map_data(t_game *game, char *buf_map);
 int					chk_map_validity(t_game *game);
 int					chk_config_validity(t_game *game, t_cub_info *cub_info);

@@ -1,0 +1,16 @@
+R 800 600     
+NO ./textures/noxpm.xpm
+SO ./textures/paul.xpm
+WE ./textures/wexpm.xpm
+EA ./textures/eaxpm.xpm
+F 0, 45   , 170
+C 49, 91, 31
+
+
+
+
+
+1111111111111111111111111
+1000000000W00000000000001
+1000000000000000000000001
+1111111111111111111111111

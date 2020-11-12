@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 17:13:50 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/08 21:07:11 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 18:13:47 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,15 @@ int			copy_map_data(t_game *game, char *buf_map)
 	return (1);
 }
 
-int			generate_buf_map(t_game *game, char *line, char **buf_map)
+int			generate_buf_map(t_game *game, char *line)
 {
-	*buf_map = ft_strjoin(*buf_map, line);
-	*buf_map = ft_strjoin(*buf_map, "\n");
+	char	*temp;
+
+	temp = ft_strjoin(game->buf_map, line);
+	game->buf_map = temp;
+	game->buf_map = ft_strjoin(game->buf_map, "\n");
 	game->cub_info->rows += 1;
-	if (ft_strlen(line) > game->cub_info->cols)
+	if ((int)ft_strlen(line) > game->cub_info->cols)
 		game->cub_info->cols = ft_strlen(line);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:31:12 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/12 15:39:12 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 17:51:37 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	parse_scr_size(t_game *game, char *line)
 	return (1);
 }
 
-static int	classify(t_game *game, char *line, char **buf_map)
+static int	classify(t_game *game, char *line)
 {
 	int		i;
 
@@ -76,7 +76,7 @@ static int	classify(t_game *game, char *line, char **buf_map)
 	else if (line[i] == '1' || line[i] == ' ' || line[i] == '0'
 			|| line[i] == 'N' || line[i] == 'S' || line[i] == 'W'
 			|| line[i] == 'E' || line[i] == '2')
-		return (generate_buf_map(game, line, buf_map));
+		return (generate_buf_map(game, line));
 	return (1);
 }
 
@@ -85,22 +85,19 @@ int			parse_config(t_game *game, char *argv)
 	int		ret;
 	int		fd;
 	char	*line;
-	char	*buf_map;
 
-	buf_map = malloc(sizeof(char) * 2);
-	buf_map = "";
 	if ((fd = open(argv, O_RDONLY)) < 0)
 		leave(1, game, "ERROR\nNo such file\n");
 	while (fd >= 0 && (ret = (get_next_line(fd, &line))) != -1)
 	{
-		if (classify(game, line, &buf_map) == 0)
+		if (classify(game, line) == 0)
 			leave(1, game, "ERROR\nMap info parsing err");
 		free(line);
 		if (ret == 0)
 			break ;
 	}
 	close(fd);
-	if (!copy_map_data(game, buf_map) || !chk_map_validity(game)
+	if (!copy_map_data(game, game->buf_map) || !chk_map_validity(game)
 		|| !chk_config_validity(game, game->cub_info))
 		return (0);
 	return (1);

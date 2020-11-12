@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 13:22:33 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/12 11:38:58 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 18:13:12 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int		close_window(t_game *game)
 {
+	(void)game;
 	exit(0);
 	return (0);
 }
@@ -36,6 +37,8 @@ int		init_game(t_game *game, char *argv)
 		|| !init_player(game))
 		return (0);
 	game->num_sprite = 0;
+	game->buf_map = (char *)malloc(sizeof(char) * 2);
+	game->buf_map = "";
 	if (!parse_config(game, argv))
 		leave(1, game, "Error\nInvalid map");
 	game->win_ptr = mlx_new_window(game->mlx_ptr, game->cub_info->scr_width, \
