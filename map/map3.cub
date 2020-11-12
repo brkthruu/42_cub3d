@@ -3,8 +3,9 @@ NO ./textures/noxpm.xpm
 SO ./textures/paul.xpm
 WE ./textures/wexpm.xpm
 EA ./textures/eaxpm.xpm
-F 0, 45   , 170
-C 49, 91, 31
+S ./textures/pillar.xpm
+F 0, 85   , 80
+C 19, 191, 201
 
 1111111111111111111111111
 1000000000000000000000001

@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/11 19:37:06 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 15:47:10 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ int					parse_color(t_game *game, char *line, char opt);
 int					generate_buf_map(t_game *game, char *line, char **buf_map);
 int					copy_map_data(t_game *game, char *buf_map);
 int					chk_map_validity(t_game *game);
+int					chk_config_validity(t_game *game, t_cub_info *cub_info);
 int					sprite_cnt(t_game *game);
 
 int					game_loop(t_game *game);
@@ -172,10 +173,10 @@ void				coloring_floor_ceiling(t_game *game);
 
 int					key_press(int key, t_game *game);
 int					key_release(int key, t_game *game);
-void    			move_forward(t_game *game);
-void			    move_backward(t_game *game);
-void			    move_left(t_game *game);
-void			    move_right(t_game *game);
+void				move_forward(t_game *game);
+void				move_backward(t_game *game);
+void				move_left(t_game *game);
+void				move_right(t_game *game);
 void				rotate_left(t_game *game);
 void				rotate_right(t_game *game);
 void				leave(int mod, t_game *game, char *msg);

@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:36:16 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/10 17:53:31 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 15:09:43 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ static int	chk_map_validity_edge(t_game *game)
 				|| game->cub_info->map[i][j] == 0)
 				&& !chk_map_validity_space(game, i, j))
 				return (0);
+			if (game->cub_info->map[i][j] == 0)
+				break ;
 			j++;
 		}
 		i++;

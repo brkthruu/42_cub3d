@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 19:45:00 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/11 20:02:09 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 15:39:43 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ int		init_cub_info(t_game *game)
 		return (0);
 	game->cub_info->rows = 0;
 	game->cub_info->cols = 0;
+	game->cub_info->scr_width = -1;
+	game->cub_info->scr_height = -1;
+	game->cub_info->color_floor = -1;
+	game->cub_info->color_ceil = -1;
 	return (1);
 }
 
@@ -87,6 +91,7 @@ int		init_textures(t_game *game, int nbr_textures)
 		if (!(game->cub_info->textures[count] = malloc(sizeof(t_img))))
 			return (0);
 		ft_bzero(game->cub_info->textures[count], sizeof(t_img));
+		game->cub_info->textures[count]->size_l = -1;
 		count++;
 	}
 	return (1);

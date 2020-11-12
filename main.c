@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 13:22:33 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/11 20:06:48 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 11:38:58 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int		main(int argc, char **argv)
 	{
 		if (ft_strncmp(argv[2], "--save", ft_strlen(argv[2])) == 0)
 			game.save = 1;
+		else
+			leave(1, &game, "ERROR\nInvalid option");
 	}
-
 	mlx_loop_hook(game.mlx_ptr, &game_loop, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_hook(game.win_ptr, X_EVENT_KEY_EXIT, 0, &close_window, &game);
 	mlx_loop(game.mlx_ptr);
-
 	return (0);
 }

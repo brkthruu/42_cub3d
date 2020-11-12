@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:31:12 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/10 21:23:32 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 15:39:12 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 static int	set_texture(t_game *game, char *line, int tex_index)
 {
+	int		i;
+
+	i = 0;
+	while (is_whitespace(line[i]))
+		i++;
+	if (game->cub_info->textures[tex_index]->size_l != -1)
+		return (0);
 	if (!(game->cub_info->textures[tex_index]->img_ptr =
-		mlx_xpm_file_to_image(game->mlx_ptr, (char *)line,
+		mlx_xpm_file_to_image(game->mlx_ptr, (char *)&line[i],
 		&game->cub_info->textures[tex_index]->img_width,
 		&game->cub_info->textures[tex_index]->img_height)))
 		return (0);
@@ -47,23 +54,28 @@ static int	parse_scr_size(t_game *game, char *line)
 
 static int	classify(t_game *game, char *line, char **buf_map)
 {
-	if (line[0] == 'R')
+	int		i;
+
+	i = 0;
+	while (is_whitespace(line[i]))
+		i++;
+	if (line[i] == 'R')
 		return (parse_scr_size(game, line));
-	else if (line[0] == 'N' && line[1] == 'O')
-		return (set_texture(game, &line[3], 0));
-	else if (line[0] == 'S' && line[1] == 'O')
-		return (set_texture(game, &line[3], 1));
-	else if (line[0] == 'W' && line[1] == 'E')
-		return (set_texture(game, &line[3], 2));
-	else if (line[0] == 'E' && line[1] == 'A')
-		return (set_texture(game, &line[3], 3));
-	else if (line[0] == 'S' && line[1] == ' ')
-		return (set_texture(game, &line[2], 4));
-	else if (line[0] == 'F' || line[0] == 'C')
-		return (parse_color(game, line, line[0]));
-	else if (line[0] == '1' || line[0] == ' ' || line[0] == '0'
-			|| line[0] == 'N' || line[0] == 'S' || line[0] == 'W'
-			|| line[0] == 'E' || line[0] == '2')
+	else if (line[i] == 'N' && line[i + 1] == 'O')
+		return (set_texture(game, &line[i + 3], 0));
+	else if (line[i] == 'S' && line[i + 1] == 'O')
+		return (set_texture(game, &line[i + 3], 1));
+	else if (line[i] == 'W' && line[i + 1] == 'E')
+		return (set_texture(game, &line[i + 3], 2));
+	else if (line[i] == 'E' && line[i + 1] == 'A')
+		return (set_texture(game, &line[i + 3], 3));
+	else if (line[i] == 'S' && line[i + 1] == ' ')
+		return (set_texture(game, &line[i + 2], 4));
+	else if (line[i] == 'F' || line[i] == 'C')
+		return (parse_color(game, line, line[i]));
+	else if (line[i] == '1' || line[i] == ' ' || line[i] == '0'
+			|| line[i] == 'N' || line[i] == 'S' || line[i] == 'W'
+			|| line[i] == 'E' || line[i] == '2')
 		return (generate_buf_map(game, line, buf_map));
 	return (1);
 }
@@ -77,17 +89,19 @@ int			parse_config(t_game *game, char *argv)
 
 	buf_map = malloc(sizeof(char) * 2);
 	buf_map = "";
-	fd = open(argv, O_RDONLY);
+	if ((fd = open(argv, O_RDONLY)) < 0)
+		leave(1, game, "ERROR\nNo such file\n");
 	while (fd >= 0 && (ret = (get_next_line(fd, &line))) != -1)
 	{
 		if (classify(game, line, &buf_map) == 0)
-			leave(1, game, "map parsing err\n");
+			leave(1, game, "ERROR\nMap info parsing err");
 		free(line);
 		if (ret == 0)
 			break ;
 	}
 	close(fd);
-	if (!copy_map_data(game, buf_map) || !chk_map_validity(game))
+	if (!copy_map_data(game, buf_map) || !chk_map_validity(game)
+		|| !chk_config_validity(game, game->cub_info))
 		return (0);
 	return (1);
 }
