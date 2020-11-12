@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 17:09:54 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/12 15:46:25 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 21:16:46 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	get_num_color(char *line, int *i)
 	color = ft_atoi(&line[*i]);
 	if (color < 0 || color > 255)
 		return (-1);
-	while (ft_isdigit(line[*i]))
+	while (ft_isdigit(line[*i]) || line[*i] != ',')
 		*i += 1;
 	*i += 1;
 	return (color);

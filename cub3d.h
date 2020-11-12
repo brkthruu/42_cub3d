@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 10:53:41 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/12 19:07:54 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 21:14:18 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,5 +192,5 @@ int					save_data(t_game *game, int fd, int pad);
 int					get_color(t_game *game, int x, int y);
 void				write_4bytes(unsigned char *bytes, int value);
 
-void				free_sprite(t_game *game, t_ray *ray);
+void				free_sprite(t_ray *ray);
 #endif
