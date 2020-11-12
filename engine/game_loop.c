@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:07:22 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/12 09:08:36 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 19:08:06 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ int			game_loop(t_game *game)
 	}
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
 							game->img->img_ptr, 0, 0);
+	free_sprite(game, &ray);
 	return (1);
 }

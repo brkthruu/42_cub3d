@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 17:13:50 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/12 18:13:47 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/12 19:00:03 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ int			generate_buf_map(t_game *game, char *line)
 	char	*temp;
 
 	temp = ft_strjoin(game->buf_map, line);
+	free(game->buf_map);
 	game->buf_map = temp;
-	game->buf_map = ft_strjoin(game->buf_map, "\n");
+	temp = ft_strjoin(game->buf_map, "\n");
+	free(game->buf_map);
+	game->buf_map = temp;
 	game->cub_info->rows += 1;
 	if ((int)ft_strlen(line) > game->cub_info->cols)
 		game->cub_info->cols = ft_strlen(line);

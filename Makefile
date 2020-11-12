@@ -6,13 +6,14 @@
 #    By: hjung <hjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/22 14:00:47 by hjung             #+#    #+#              #
-#    Updated: 2020/11/12 18:11:24 by hjung            ###   ########.fr        #
+#    Updated: 2020/11/12 19:08:30 by hjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
-CC = gcc
-FLAGS = -Wall -Werror -Wextra
+CC = gcc -Wall -Werror -Wextra
+# CC = gcc -Wall -Werror -Wextra -g -fsanitize=address
+# FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 SRC	=	main.c \
 		parse_cub/get_next_line.c \
 		parse_cub/parse_config.c \
@@ -27,6 +28,7 @@ SRC	=	main.c \
 		engine/deal_key.c\
 		engine/player_move.c\
 		engine/sprite.c\
+		engine/free.c\
 		utils/sort_sprites.c\
 		utils/is_whitespace.c\
 		utils/capture_bmp.c
@@ -36,9 +38,9 @@ LIBFT		= ./Libft/libft.a
 
 all : $(NAME)
 
-%.o: %.c
-	# $(CC) -Imlx -c $< -o $@
-	$(CC) $(FLAGS) -Imlx -c $< -o $@
+# %.o: %.c
+# 	# $(CC) -Imlx -c $< -o $@
+# 	$(CC) $(FLAGS) -Imlx -c $< -o $@
 
 $(NAME) : $(OBJ) $(LIBFT)
 	$(CC) $(LIBFT) -L./mlx -lmlx -framework OpenGL -framework AppKit $(OBJ) -o $(NAME)
