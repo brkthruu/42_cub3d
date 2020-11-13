@@ -4,8 +4,8 @@ SO ./textures/paul.xpm
 WE ./textures/wexpm.xpm
 EA ./textures/eaxpm.xpm
 S ./textures/pillar.xpm
-F 0,      80   , 80
-C 225, 216, 0
+F 0,80,80
+C 225,216,0
 
         1111111111111111111111111
         1000000000110000000000001

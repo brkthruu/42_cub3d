@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:36:16 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/12 15:09:43 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/13 10:45:30 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,8 @@ static void	set_player(t_game *game, char c)
 	}
 }
 
-static int	parse_player_info(t_game *game)
+static int	parse_player_info(t_game *game, int i, int j)
 {
-	int		i;
-	int		j;
-
-	i = 0;
 	while (i < game->cub_info->rows)
 	{
 		j = 0;
@@ -56,6 +52,8 @@ static int	parse_player_info(t_game *game)
 				|| game->cub_info->map[i][j] == 'W'
 				|| game->cub_info->map[i][j] == 'E')
 			{
+				if (game->player->posx >= (double)0)
+					return (0);
 				game->player->posx = (double)j;
 				game->player->posy = (double)i;
 				set_player(game, game->cub_info->map[i][j]);
@@ -124,9 +122,14 @@ static int	chk_map_validity_edge(t_game *game)
 
 int			chk_map_validity(t_game *game)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
 	if (!chk_map_validity_edge(game))
 		return (0);
-	if (!parse_player_info(game))
+	if (!parse_player_info(game, i, j))
 		return (0);
 	if (!sprite_cnt(game))
 		return (0);
