@@ -6,14 +6,12 @@
 #    By: hjung <hjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/22 14:00:47 by hjung             #+#    #+#              #
-#    Updated: 2020/11/12 19:08:30 by hjung            ###   ########.fr        #
+#    Updated: 2020/11/13 11:41:08 by hjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = gcc -Wall -Werror -Wextra
-# CC = gcc -Wall -Werror -Wextra -g -fsanitize=address
-# FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 SRC	=	main.c \
 		parse_cub/get_next_line.c \
 		parse_cub/parse_config.c \
@@ -37,10 +35,6 @@ OBJ = $(SRC:.c=.o)
 LIBFT		= ./Libft/libft.a
 
 all : $(NAME)
-
-# %.o: %.c
-# 	# $(CC) -Imlx -c $< -o $@
-# 	$(CC) $(FLAGS) -Imlx -c $< -o $@
 
 $(NAME) : $(OBJ) $(LIBFT)
 	$(CC) $(LIBFT) -L./mlx -lmlx -framework OpenGL -framework AppKit $(OBJ) -o $(NAME)

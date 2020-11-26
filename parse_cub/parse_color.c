@@ -6,7 +6,7 @@
 /*   By: hjung <hjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 17:09:54 by hjung             #+#    #+#             */
-/*   Updated: 2020/11/12 21:16:46 by hjung            ###   ########.fr       */
+/*   Updated: 2020/11/13 11:17:28 by hjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,24 @@ static int	chk_double_color_key(t_game *game, char opt)
 	return (1);
 }
 
+static int	chk_color_format(char *line)
+{
+	int		i;
+
+	if (!is_whitespace(line[1]))
+		return (0);
+	i = 2;
+	while (is_whitespace(line[i]))
+		i++;
+	while (ft_isdigit(line[i]) || line[i] == ',')
+		i++;
+	while (is_whitespace(line[i]))
+		i++;
+	if (line[i] != '\0')
+		return (0);
+	return (1);
+}
+
 int			parse_color(t_game *game, char *line, char opt)
 {
 	int		i;
@@ -49,7 +67,8 @@ int			parse_color(t_game *game, char *line, char opt)
 	int		rgb;
 
 	i = 1;
-	if (line[1] != ' ' || !chk_double_color_key(game, opt))
+	if (line[1] != ' ' || !chk_double_color_key(game, opt)
+		|| !chk_color_format(line))
 		return (0);
 	while (is_whitespace(line[i]) || line[i] == ',')
 		i++;
