@@ -49,8 +49,7 @@ $(LIBFT):
 	make -C ./Libft
 	
 clean :
-	rm -rf ${OBJ}
-	rm -f a.out
+	rm -rf $(OBJ)
 
 fclean: clean
 	$(MAKE) fclean -C ./libft
